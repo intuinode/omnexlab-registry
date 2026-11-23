@@ -1,0 +1,143 @@
+'use strict';
+// Turns a "subdomain request" issue form into a change in domains/.
+// The issue body is untrusted text: it is only ever parsed as data and every value is validated
+// with the same rules as pull requests before anything is written.
+const fs = require('node:fs');
+const path = require('node:path');
+const { config, checkEntry, checkUniqueness, loadDomains, DOMAINS_DIR } = require('./lib');
+
+const FIELD_LABELS = {
+  action: 'What do you want to do?',
+  name: 'Subdomain name',
+  target: 'Where your site lives',
+};
+
+const safe = (s) => String(s).replace(/[@`<>]/g, '').slice(0, 400);
+const isMaintainer = (u) => config.maintainers.map((m) => m.toLowerCase()).includes(String(u).toLowerCase());
+const formUrl = `https://github.com/intuinode/omnexlab-registry/issues/new?template=subdomain.yml`;
+
+function parseIssue(body) {
+  const fields = {};
+  const parts = String(body || '').replace(/\r\n/g, '\n').split(/^### /m).slice(1);
+  for (const part of parts) {
+    const nl = part.indexOf('\n');
+    const heading = (nl === -1 ? part : part.slice(0, nl)).trim();
+    let value = (nl === -1 ? '' : part.slice(nl + 1)).trim();
+    if (value === '_No response_') value = '';
+    for (const [key, label] of Object.entries(FIELD_LABELS)) {
+      if (heading.startsWith(label)) fields[key] = value;
+    }
+  }
+  return fields;
+}
+
+function normalizeTarget(t) {
+  return String(t || '').trim().toLowerCase().replace(/^https?:\/\//, '').replace(/[/?#].*$/, '').replace(/\.$/, '');
+}
+
+function actionOf(text) {
+  const t = String(text || '').toLowerCase();
+  if (t.includes('remove')) return 'remove';
+  if (t.includes('change')) return 'update';
+  return 'create';
+}
+
+const fail = (...problems) => ({
+  ok: false,
+  message: `**Your request could not be applied.**\n\n${problems.map((p) => `- ${safe(p)}`).join('\n')}\n\nFix the problem and [submit a new request](${formUrl}).`,
+});
+
+function decide({ fields, author, existing, ageDays }) {
+  if (!fields || (!fields.name && !fields.action)) {
+    return fail('This does not look like the request form. Please use the form link on https://omnexlab.site.');
+  }
+  const op = actionOf(fields.action);
+  const name = String(fields.name || '').trim().toLowerCase();
+  const target = normalizeTarget(fields.target);
+  const maint = isMaintainer(author);
+  if (!name) return fail('Please enter the subdomain name you want.');
+
+  const cur = existing.find((d) => d.name === name && d.entry);
+  const owns = cur && cur.entry.owner && String(cur.entry.owner.github).toLowerCase() === String(author).toLowerCase();
+
+  if (op === 'remove') {
+    if (!cur) return fail(`There is no subdomain called "${name}".`);
+    if (!owns && !maint) return fail('Only the owner of a subdomain can remove it.');
+    return { ok: true, op, name, message: `**Done.** \`${name}.${config.rootDomain}\` has been removed. The DNS record disappears within a few minutes.` };
+  }
+
+  if (!target) return fail('Please tell us where your site lives, for example myproject.vercel.app.');
+
+  let entry;
+  if (op === 'update') {
+    if (!cur) return fail(`There is no subdomain called "${name}" to change.`);
+    if (!owns && !maint) return fail('Only the owner of a subdomain can change it.');
+    entry = { ...cur.entry, record: { CNAME: target } };
+  } else {
+    if (cur) return fail(`The name "${name}" is already taken. Please choose another.`);
+    entry = { owner: { github: author }, record: { CNAME: target } };
+  }
+
+  const errors = checkEntry(name, entry);
+  if (op === 'create') {
+    errors.push(...checkUniqueness([...existing.filter((d) => d.name !== name && d.entry), { name, entry }]));
+    if (!maint && ageDays < config.minAccountAgeDays) {
+      errors.push(`GitHub accounts must be at least ${config.minAccountAgeDays} days old (yours is ${Math.floor(ageDays)} days).`);
+    }
+  }
+  if (errors.length) return fail(...errors);
+
+  const host = `${name}.${config.rootDomain}`;
+  return {
+    ok: true,
+    op,
+    name,
+    entry,
+    message:
+      `**Done.** \`${host}\` ${op === 'update' ? 'now points to' : 'is being set up and points to'} \`${target}\`.\n\n` +
+      `It goes live in about a minute. Next, add \`${host}\` as a custom domain in your host ` +
+      `(Vercel: Project > Settings > Domains; Netlify: Domain management; GitHub Pages: Settings > Pages).\n\n` +
+      `To change or remove it later, [submit another request](${formUrl}).`,
+  };
+}
+
+function apply(res) {
+  const file = path.join(DOMAINS_DIR, `${res.name}.json`);
+  if (res.op === 'remove') fs.unlinkSync(file);
+  else {
+    fs.mkdirSync(DOMAINS_DIR, { recursive: true });
+    fs.writeFileSync(file, JSON.stringify(res.entry, null, 2) + '\n');
+  }
+}
+
+async function accountAgeDays(user) {
+  const headers = { 'User-Agent': 'omnexlab-registry', Accept: 'application/vnd.github+json' };
+  if (process.env.GH_TOKEN) headers.Authorization = `Bearer ${process.env.GH_TOKEN}`;
+  const res = await fetch(`https://api.github.com/users/${encodeURIComponent(user)}`, { headers });
+  if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
+  const { created_at } = await res.json();
+  return (Date.now() - new Date(created_at).getTime()) / 86400000;
+}
+
+async function main() {
+  const emit = (k, v) => process.env.GITHUB_OUTPUT && fs.appendFileSync(process.env.GITHUB_OUTPUT, `${k}=${v}\n`);
+  let res;
+  try {
+    const author = process.env.ISSUE_AUTHOR;
+    if (!author) throw new Error('ISSUE_AUTHOR missing');
+    const fields = parseIssue(process.env.ISSUE_BODY);
+    const ageDays = isMaintainer(author) ? Infinity : await accountAgeDays(author);
+    res = decide({ fields, author, existing: loadDomains(), ageDays });
+    if (res.ok) apply(res);
+  } catch (e) {
+    console.error(e);
+    res = { ok: false, message: '**Something went wrong** while processing your request, so nothing was changed. The maintainer can see the failed run. Please try again later.' };
+  }
+  fs.writeFileSync(process.env.RESULT_FILE || 'result.md', res.message + '\n');
+  emit('ok', res.ok);
+  emit('done', 'true');
+  console.log(res.ok ? `OK: ${res.op} ${res.name}` : 'Rejected');
+}
+
+module.exports = { parseIssue, decide, normalizeTarget, actionOf };
+if (require.main === module) main();

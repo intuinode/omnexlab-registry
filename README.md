@@ -4,9 +4,9 @@ Get a free `yourname.omnexlab.site` for your project, portfolio or demo. It is a
 
 ## Easiest way (about 2 minutes, no Git knowledge needed)
 
-1. Go to **https://omnexlab.site**, fill in the three boxes and press the button.
-2. On the GitHub page that opens, press **Propose new file**, then **Create pull request**.
-3. A bot approves valid requests in about a minute.
+1. Go to **https://omnexlab.site**, fill in the two boxes and press the button.
+2. GitHub opens a request form with your answers filled in. Press **Submit new issue**. Your GitHub username is picked up automatically.
+3. A bot checks the request, sets it up and replies on the issue in about a minute. Rejections explain why.
 4. Tell your host about the name. For **Vercel**: Project > Settings > Domains > add `yourname.omnexlab.site`. For Netlify: Domain management > Add a domain. For GitHub Pages: Settings > Pages > Custom domain.
 
 HTTPS works immediately for visitors, because traffic goes through Cloudflare.
@@ -27,7 +27,7 @@ HTTPS works immediately for visitors, because traffic goes through Cloudflare.
 3. **Open a pull request.** Checks run automatically. If everything is valid it is merged by a bot and the record goes live within a few minutes.
 4. **Tell your host about the name.** For GitHub Pages: repository Settings > Pages > Custom domain > `yourname.omnexlab.site`. HTTPS is provided by your host.
 
-To change where it points, edit your file. To give the name up, delete your file. Both work through a pull request.
+To change where it points or give the name up, submit the same form and choose **Change** or **Remove** (only the owner can). Developers can also edit or delete their file with a pull request.
 
 ## Rules
 
@@ -45,6 +45,7 @@ To change where it points, edit your file. To give the name up, delete your file
 ## For the maintainer
 
 - `scripts/validate.js` checks entries and pull requests; `scripts/sync.js` makes Cloudflare DNS match `domains/`.
+- `Subdomain request` handles the issue form: it parses the form as data, validates it with the same rules, commits the change and replies. The requester's GitHub username comes from the issue itself.
 - `Validate` runs on pull requests with no secrets. `Automerge` merges valid single-file pull requests. `Deploy DNS` runs on every merge to `main`, on demand, and daily.
 - **Takedown:** delete the file in `domains/` (or add the user to `blockedUsers` in `config.json`) and merge. DNS updates in minutes. For an emergency, delete the record directly in the Cloudflare dashboard.
 - Run `npm test` and `npm run plan` locally (no dependencies to install).

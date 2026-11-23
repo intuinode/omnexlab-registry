@@ -1,0 +1,41 @@
+name: Get, change or remove a subdomain
+description: Request a free yourname.omnexlab.site (handled automatically in about a minute)
+title: "Subdomain request"
+labels: ["subdomain-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill in the boxes and press **Submit new issue**. A bot checks your request, sets it up and replies here.
+        Your GitHub username is taken from this issue, so you do not need to type it.
+  - type: dropdown
+    id: action
+    attributes:
+      label: What do you want to do?
+      options:
+        - Create a new subdomain
+        - Change where my subdomain points
+        - Remove my subdomain
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Subdomain name
+      description: Just the first part. For myapp.omnexlab.site, type myapp (3-32 letters, digits or hyphens).
+      placeholder: myapp
+    validations:
+      required: true
+  - type: input
+    id: target
+    attributes:
+      label: Where your site lives (address only)
+      description: Not needed when removing. Vercel myproject.vercel.app, Netlify mysite.netlify.app, GitHub Pages username.github.io.
+      placeholder: myproject.vercel.app
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        By submitting you agree to the [Terms](https://github.com/intuinode/omnexlab-registry/blob/main/TERMS.md).

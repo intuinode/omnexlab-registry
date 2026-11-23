@@ -4,109 +4,196 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>omnexlab.site - free subdomains</title>
-<meta name="description" content="Get a free yourname.omnexlab.site subdomain for your Vercel, Netlify or GitHub Pages site. Fill in a form, press a button, done.">
+<meta name="description" content="Give your project a real address. Free yourname.omnexlab.site subdomains for Vercel, Netlify and GitHub Pages sites, with HTTPS included.">
+<meta name="theme-color" content="#4f46e5">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free subdomains at omnexlab.site">
+<meta property="og:description" content="Give your project a real address: yourname.omnexlab.site. HTTPS included, no server, no cost.">
+<meta property="og:url" content="https://omnexlab.site/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
-  :root { --bg:#fff; --fg:#14171c; --muted:#5b6472; --card:#f4f6f9; --line:#d9dee6; --accent:#2457d6; --bad:#b3261e; --ok:#1a7f4b; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#0f1319; --fg:#e8ecf2; --muted:#9aa5b5; --card:#181e27; --line:#2a3340; --accent:#7ea2ff; --bad:#ff8a80; --ok:#4fd18b; } }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
-  main { max-width:720px; margin:0 auto; padding:48px 16px 72px; }
-  h1 { font-size:2rem; line-height:1.2; margin:0 0 8px; }
-  h2 { margin:36px 0 8px; font-size:1.25rem; }
-  p.lead { color:var(--muted); font-size:1.1rem; margin:0 0 24px; }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; }
-  label { display:block; font-weight:600; margin:14px 0 4px; }
-  input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--fg); font:inherit; }
-  .row { display:flex; gap:8px; align-items:center; }
-  .row span { color:var(--muted); white-space:nowrap; }
-  small { color:var(--muted); display:block; margin-top:4px; }
-  .err { color:var(--bad); min-height:1.4em; margin:10px 0 0; }
-  .btn { display:inline-block; margin-top:14px; background:var(--accent); color:#fff; padding:11px 20px; border-radius:8px; text-decoration:none; font-weight:600; border:0; font:inherit; font-weight:600; cursor:pointer; }
-  .btn[aria-disabled="true"] { opacity:.45; pointer-events:none; }
-  ol li, ul li { margin:6px 0; }
-  code { background:var(--card); padding:1px 6px; border-radius:4px; }
+  :root {
+    --bg:#f6f7fb; --surface:#ffffff; --fg:#101828; --muted:#566074; --line:#e2e6ee;
+    --accent:#4f46e5; --accent2:#0d9488; --on-accent:#ffffff; --bad:#b42318; --ok:#067647;
+    --shadow:0 1px 2px rgba(16,24,40,.05), 0 8px 24px rgba(16,24,40,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0a0e16; --surface:#121826; --fg:#e8ecf4; --muted:#98a3b8; --line:#222c3e;
+      --accent:#8b93ff; --accent2:#35d0c6; --on-accent:#0a0e16; --bad:#ff8f85; --ok:#4fd18b;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } * { transition:none !important; } }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; -webkit-font-smoothing:antialiased; }
   a { color:var(--accent); }
-  footer { margin-top:40px; color:var(--muted); font-size:.9rem; }
+  :focus-visible { outline:3px solid var(--accent); outline-offset:2px; border-radius:6px; }
+  .wrap { max-width:880px; margin:0 auto; padding:0 16px; }
+
+  header.top { display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:-.01em; color:var(--fg); text-decoration:none; }
+  .brand svg { width:28px; height:28px; }
+  nav a { margin-left:18px; color:var(--muted); text-decoration:none; font-size:.95rem; }
+  nav a:hover { color:var(--fg); }
+
+  .hero { padding:44px 0 28px; text-align:center; }
+  .eyebrow { display:inline-block; font-size:.8rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:color-mix(in srgb, var(--accent) 12%, transparent); padding:5px 12px; border-radius:999px; }
+  h1 { font-size:clamp(2rem,5.5vw,3.25rem); line-height:1.1; letter-spacing:-.03em; margin:18px 0 14px; }
+  h1 span { background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lead { color:var(--muted); font-size:1.15rem; max-width:560px; margin:0 auto; }
+
+  .bar { margin:28px auto 0; max-width:480px; display:flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:10px 18px; box-shadow:var(--shadow); text-align:left; }
+  .bar svg { flex:none; width:16px; height:16px; color:var(--ok); }
+  .bar b { font-weight:600; word-break:break-all; }
+  .bar span { color:var(--muted); }
+
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:24px; margin:28px auto 0; max-width:560px; }
+  .card h2 { margin:0 0 4px; font-size:1.2rem; }
+  label { display:block; font-weight:600; font-size:.92rem; margin:16px 0 6px; }
+  input { width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--fg); font:inherit; }
+  input:focus { border-color:var(--accent); }
+  .row { display:flex; align-items:center; gap:8px; }
+  .row .suffix { color:var(--muted); white-space:nowrap; }
+  small { display:block; color:var(--muted); margin-top:6px; font-size:.85rem; }
+  .err { color:var(--bad); min-height:1.5em; margin:12px 0 0; font-size:.92rem; }
+  .btn { display:block; width:100%; text-align:center; margin-top:8px; background:var(--accent); color:var(--on-accent); padding:13px 20px; border-radius:10px; text-decoration:none; font-weight:700; transition:transform .12s, opacity .12s; }
+  .btn:hover { transform:translateY(-1px); }
+  .btn[aria-disabled="true"] { opacity:.4; pointer-events:none; }
+
+  section { padding:44px 0 0; }
+  section > h2 { font-size:1.6rem; letter-spacing:-.02em; margin:0 0 6px; }
+  section > p.sub { color:var(--muted); margin:0 0 20px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; }
+  .tile { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px; }
+  .tile .n { display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%; background:var(--accent); color:var(--on-accent); font-weight:700; font-size:.9rem; margin-bottom:10px; }
+  .tile h3 { margin:0 0 4px; font-size:1.05rem; }
+  .tile p { margin:0; color:var(--muted); font-size:.95rem; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+  .chip { border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:5px 13px; font-size:.9rem; color:var(--muted); }
+
+  details { background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:10px; }
+  summary { cursor:pointer; font-weight:600; }
+  details p { margin:10px 0 0; color:var(--muted); }
+  code { background:color-mix(in srgb, var(--fg) 8%, transparent); padding:1px 6px; border-radius:5px; font-size:.9em; }
+
+  footer { margin:56px 0 0; padding:24px 0 48px; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; display:flex; flex-wrap:wrap; gap:8px 18px; justify-content:space-between; }
+  footer a { color:var(--muted); }
 </style>
 </head>
 <body>
-<main>
-  <h1>Free <code>yourname.omnexlab.site</code></h1>
-  <p class="lead">Point a free subdomain at your Vercel, Netlify or GitHub Pages site. HTTPS works immediately.</p>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#g)"/><circle cx="16" cy="16" r="6" fill="none" stroke="#fff" stroke-width="3"/></svg>
+      omnexlab
+    </a>
+    <nav><a href="#how">How it works</a><a href="#faq">FAQ</a><a href="https://github.com/intuinode/omnexlab-registry">GitHub</a></nav>
+  </header>
 
-  <div class="card">
-    <strong>Step 1: fill this in</strong>
-    <label for="name">Name you want</label>
-    <div class="row"><input id="name" placeholder="myapp" autocomplete="off" spellcheck="false"><span>.omnexlab.site</span></div>
-    <label for="gh">Your GitHub username</label>
-    <input id="gh" placeholder="octocat" autocomplete="off" spellcheck="false">
-    <label for="target">Where your site lives right now</label>
-    <input id="target" placeholder="myproject.vercel.app" autocomplete="off" spellcheck="false">
-    <small>Vercel: <code>yourproject.vercel.app</code> · Netlify: <code>yoursite.netlify.app</code> · GitHub Pages: <code>username.github.io</code></small>
-    <p class="err" id="err" role="alert"></p>
-    <strong>Step 2: press the button</strong><br>
-    <a class="btn" id="go" aria-disabled="true" href="#" target="_blank" rel="noopener">Create my subdomain on GitHub</a>
-    <small>GitHub opens a page with your file ready. Press <em>Propose new file</em>, then <em>Create pull request</em>. A bot approves valid requests in about a minute.</small>
-  </div>
+  <main>
+    <div class="hero">
+      <span class="eyebrow">Free subdomains</span>
+      <h1>Give your project a <span>real address.</span></h1>
+      <p class="lead">Get <code>yourname.omnexlab.site</code> for your Vercel, Netlify or GitHub Pages site. HTTPS included. No server, no cost.</p>
+      <div class="bar" aria-live="polite">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>
+        <span>https://</span><b id="preview">yourname</b><span>.omnexlab.site</span>
+      </div>
+    </div>
 
-  <h2>Step 3: tell your host about the name</h2>
-  <ul>
-    <li><strong>Vercel:</strong> Project &rarr; Settings &rarr; Domains &rarr; add <code>yourname.omnexlab.site</code>. If Vercel shows a warning, wait a minute and press Refresh.</li>
-    <li><strong>Netlify:</strong> Site configuration &rarr; Domain management &rarr; Add a domain.</li>
-    <li><strong>GitHub Pages:</strong> Repository &rarr; Settings &rarr; Pages &rarr; Custom domain.</li>
-  </ul>
-  <p>Visitors get HTTPS straight away, because traffic goes through Cloudflare.</p>
+    <div class="card" id="get">
+      <h2>Request your subdomain</h2>
+      <label for="name">Name you want</label>
+      <div class="row"><input id="name" placeholder="myapp" autocomplete="off" spellcheck="false" autocapitalize="none"><span class="suffix">.omnexlab.site</span></div>
+      <label for="target">Where your site lives now</label>
+      <input id="target" placeholder="myproject.vercel.app" autocomplete="off" spellcheck="false" autocapitalize="none">
+      <small>Vercel <code>project.vercel.app</code> &middot; Netlify <code>site.netlify.app</code> &middot; GitHub Pages <code>user.github.io</code></small>
+      <p class="err" id="err" role="alert"></p>
+      <a class="btn" id="go" aria-disabled="true" href="#" target="_blank" rel="noopener">Request on GitHub</a>
+      <small>You sign in to GitHub and press <em>Submit new issue</em>. A bot checks it and sets it up in about a minute. Your GitHub username is picked up automatically.</small>
+    </div>
 
-  <h2>Good to know</h2>
-  <ul>
-    <li>DNS only: we never host or see your content.</li>
-    <li>One subdomain per GitHub account; accounts must be at least 30 days old.</li>
-    <li>No phishing, malware or impersonation: such names are removed.</li>
-  </ul>
+    <section id="how">
+      <h2>How it works</h2>
+      <p class="sub">Three steps, about two minutes.</p>
+      <div class="grid">
+        <div class="tile"><span class="n">1</span><h3>Pick a name</h3><p>Fill in the form above and press the button. GitHub opens with your request ready.</p></div>
+        <div class="tile"><span class="n">2</span><h3>Submit it</h3><p>Press <em>Submit new issue</em>. A bot validates the request and creates your DNS record.</p></div>
+        <div class="tile"><span class="n">3</span><h3>Add it to your host</h3><p>In Vercel, Netlify or GitHub Pages, add <code>yourname.omnexlab.site</code> as a custom domain.</p></div>
+      </div>
+      <div class="chips" aria-label="Supported hosts" style="margin-top:16px">
+        <span class="chip">Vercel</span><span class="chip">Netlify</span><span class="chip">GitHub Pages</span><span class="chip">Cloudflare Pages</span><span class="chip">GitLab Pages</span><span class="chip">Render</span><span class="chip">Fly.io</span><span class="chip">Firebase</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why use it</h2>
+      <div class="grid" style="margin-top:14px">
+        <div class="tile"><h3>HTTPS straight away</h3><p>Traffic goes through Cloudflare, so there is no waiting for a certificate.</p></div>
+        <div class="tile"><h3>DNS only</h3><p>We never host or see your content. You stay in control of your site.</p></div>
+        <div class="tile"><h3>Open source</h3><p>Every name lives in a public repository. Nothing hidden.</p></div>
+        <div class="tile"><h3>Free</h3><p>One subdomain per GitHub account, no credit card.</p></div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>Questions</h2>
+      <details><summary>How long does it take?</summary><p>Usually about a minute after you submit. Then add the name in your host's custom domain settings.</p></details>
+      <details><summary>Why was my request rejected?</summary><p>The bot replies on your request with the reason. Common ones: the name is taken or reserved, the host is not supported, or your GitHub account is under 30 days old.</p></details>
+      <details><summary>Can I change or remove it later?</summary><p>Yes. Use the same form and choose <em>Change</em> or <em>Remove</em>. Only the owner can do this.</p></details>
+      <details><summary>Can I use it for email?</summary><p>No. Subdomains are for websites only.</p></details>
+      <details><summary>What is not allowed?</summary><p>Phishing, malware, impersonation, spam and anything illegal. Such names are removed. See the <a href="https://github.com/intuinode/omnexlab-registry/blob/main/TERMS.md">Terms</a>.</p></details>
+    </section>
+  </main>
 
   <footer>
-    <a href="https://github.com/intuinode/omnexlab-registry/blob/main/TERMS.md">Terms</a> ·
-    <a href="https://github.com/intuinode/omnexlab-registry/blob/main/PRIVACY.md">Privacy</a> ·
-    <a href="https://github.com/intuinode/omnexlab-registry/blob/main/ABUSE.md">Report abuse</a> ·
-    <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a>
+    <span>&copy; omnexlab.site</span>
+    <span>
+      <a href="https://github.com/intuinode/omnexlab-registry/blob/main/TERMS.md">Terms</a> &middot;
+      <a href="https://github.com/intuinode/omnexlab-registry/blob/main/PRIVACY.md">Privacy</a> &middot;
+      <a href="https://github.com/intuinode/omnexlab-registry/blob/main/ABUSE.md">Report abuse</a> &middot;
+      <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a>
+    </span>
   </footer>
-</main>
+</div>
 <script>
-  // Same rules as the registry's server-side checks (the pull request check is the real gate).
+  // Same rules as the registry's server-side checks (the bot is the real gate).
   var ALLOWED = ['github.io','gitlab.io','netlify.app','vercel.app','vercel-dns.com','pages.dev','workers.dev','onrender.com','fly.dev','surge.sh','web.app','firebaseapp.com','codeberg.page','readthedocs.io'];
   var RESERVED = ['www','mail','email','smtp','imap','pop','pop3','ftp','ns','ns1','ns2','dns','admin','administrator','root','api','app','status','support','help','abuse','security','postmaster','webmaster','hostmaster','noreply','login','signin','signup','register','account','accounts','billing','pay','payment','payments','docs','blog','cdn','static','assets','git','github','autodiscover','autoconfig','registry','omnexlab','lab','labs'];
   var SENSITIVE = ['paypal','google','apple','icloud','microsoft','outlook','amazon','facebook','instagram','whatsapp','netflix','binance','coinbase','metamask','wellsfargo','bankofamerica','login','signin','secure','verify','official'];
   var $ = function (id) { return document.getElementById(id); };
+  var vals = function () {
+    return { n: $('name').value.trim().toLowerCase(), t: $('target').value.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/[\/?#].*$/, '').replace(/\.$/, '') };
+  };
 
-  function problem() {
-    var n = $('name').value.trim().toLowerCase(), g = $('gh').value.trim(), t = $('target').value.trim().toLowerCase().replace(/\.$/, '');
-    if (!n && !g && !t) return '';
-    if (n) {
-      if (!/^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$/.test(n) || n.indexOf('--') > -1) return 'Name: 3-32 letters, digits or hyphens, not starting or ending with a hyphen.';
-      if (RESERVED.indexOf(n) > -1) return 'That name is reserved.';
-      for (var i = 0; i < SENSITIVE.length; i++) if (n.indexOf(SENSITIVE[i]) > -1) return 'Names containing "' + SENSITIVE[i] + '" are blocked to prevent impersonation.';
+  function problem(v) {
+    if (v.n) {
+      if (!/^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$/.test(v.n) || v.n.indexOf('--') > -1) return 'Name: 3-32 letters, digits or hyphens, not starting or ending with a hyphen.';
+      if (RESERVED.indexOf(v.n) > -1) return 'That name is reserved.';
+      for (var i = 0; i < SENSITIVE.length; i++) if (v.n.indexOf(SENSITIVE[i]) > -1) return 'Names containing "' + SENSITIVE[i] + '" are blocked to prevent impersonation.';
     }
-    if (g && !/^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){0,38}$/i.test(g)) return 'That does not look like a GitHub username.';
-    if (t) {
-      if (!/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/.test(t)) return 'Where your site lives: enter just the address, like myproject.vercel.app (no https://).';
-      var ok = ALLOWED.some(function (s) { return t === s || t.slice(-(s.length + 1)) === '.' + s; }) ||
-               /^[a-z0-9]+\.vercel-dns-[0-9]{3}\.com$/.test(t);
+    if (v.t) {
+      if (!/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/.test(v.t)) return 'Enter just the address of your site, like myproject.vercel.app.';
+      var ok = ALLOWED.some(function (s) { return v.t === s || v.t.slice(-(s.length + 1)) === '.' + s; }) || /^[a-z0-9]+\.vercel-dns-[0-9]{3}\.com$/.test(v.t);
       if (!ok) return 'Supported hosts: ' + ALLOWED.join(', ') + '.';
     }
     return '';
   }
 
   function update() {
-    var n = $('name').value.trim().toLowerCase(), g = $('gh').value.trim(), t = $('target').value.trim().toLowerCase().replace(/\.$/, '');
-    var p = problem();
+    var v = vals(), p = problem(v), go = $('go');
+    $('preview').textContent = v.n && !/[^a-z0-9-]/.test(v.n) ? v.n : 'yourname';
     $('err').textContent = p;
-    var go = $('go');
-    if (p || !n || !g || !t) { go.setAttribute('aria-disabled', 'true'); go.href = '#'; return; }
-    var json = JSON.stringify({ owner: { github: g }, record: { CNAME: t } }, null, 2) + '\n';
-    go.href = 'https://github.com/intuinode/omnexlab-registry/new/main?filename=' + encodeURIComponent('domains/' + n + '.json') + '&value=' + encodeURIComponent(json);
+    if (p || !v.n || !v.t) { go.setAttribute('aria-disabled', 'true'); go.href = '#'; return; }
+    go.href = 'https://github.com/intuinode/omnexlab-registry/issues/new?template=subdomain.yml' +
+      '&title=' + encodeURIComponent('Subdomain request: ' + v.n) +
+      '&name=' + encodeURIComponent(v.n) + '&target=' + encodeURIComponent(v.t);
     go.setAttribute('aria-disabled', 'false');
   }
-  ['name', 'gh', 'target'].forEach(function (id) { $(id).addEventListener('input', update); });
+  ['name', 'target'].forEach(function (id) { $(id).addEventListener('input', update); });
   update();
 </script>
 </body>

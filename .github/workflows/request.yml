@@ -1,0 +1,58 @@
+name: Subdomain request
+
+# Runs when someone submits the issue form. The issue text is only passed to the script through
+# environment variables and is validated there; it is never interpolated into a shell command.
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: registry-writes
+  cancel-in-progress: false
+
+jobs:
+  handle:
+    if: contains(github.event.issue.labels.*.name, 'subdomain-request')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Process request
+        id: proc
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          GH_TOKEN: ${{ github.token }}
+          RESULT_FILE: ${{ runner.temp }}/result.md
+        run: node scripts/process-issue.js
+      - name: Commit and start deploy
+        if: steps.proc.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add domains
+          git commit -m "Subdomain request #${ISSUE_NUMBER}"
+          git pull --rebase origin main
+          git push origin main
+          gh workflow run deploy.yml --ref main
+      - name: Reply and close
+        if: always() && steps.proc.outputs.done == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          OK: ${{ steps.proc.outputs.ok }}
+          RESULT_FILE: ${{ runner.temp }}/result.md
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body-file "$RESULT_FILE"
+          if [ "$OK" = "true" ]; then gh issue close "$ISSUE_NUMBER" --reason completed
+          else gh issue close "$ISSUE_NUMBER" --reason "not planned"; fi
