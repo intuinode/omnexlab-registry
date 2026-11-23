@@ -113,16 +113,16 @@
       <small>Vercel <code>project.vercel.app</code> &middot; Netlify <code>site.netlify.app</code> &middot; GitHub Pages <code>user.github.io</code></small>
       <p class="err" id="err" role="alert"></p>
       <a class="btn" id="go" aria-disabled="true" href="#" target="_blank" rel="noopener">Request on GitHub</a>
-      <small>You sign in to GitHub and press <em>Submit new issue</em>. A bot checks it and sets it up in about a minute. Your GitHub username is picked up automatically.</small>
+      <small><strong>Add the name to your host first</strong> (step 1 below). You then sign in to GitHub and press <em>Submit new issue</em>. A bot checks it and sets it up in about a minute.</small>
     </div>
 
     <section id="how">
       <h2>How it works</h2>
       <p class="sub">Three steps, about two minutes.</p>
       <div class="grid">
-        <div class="tile"><span class="n">1</span><h3>Pick a name</h3><p>Fill in the form above and press the button. GitHub opens with your request ready.</p></div>
-        <div class="tile"><span class="n">2</span><h3>Submit it</h3><p>Press <em>Submit new issue</em>. A bot validates the request and creates your DNS record.</p></div>
-        <div class="tile"><span class="n">3</span><h3>Add it to your host</h3><p>In Vercel, Netlify or GitHub Pages, add <code>yourname.omnexlab.site</code> as a custom domain.</p></div>
+        <div class="tile"><span class="n">1</span><h3>Add the name to your host</h3><p>In Vercel or GitHub Pages, add <code>yourname.omnexlab.site</code> as a custom domain <strong>first</strong>. A "DNS not configured" warning is fine for now.</p></div>
+        <div class="tile"><span class="n">2</span><h3>Request it here</h3><p>Fill in the form above and press the button, then <em>Submit new issue</em> on GitHub.</p></div>
+        <div class="tile"><span class="n">3</span><h3>It goes live</h3><p>A bot checks that your host has the name, then creates the DNS record in about a minute.</p></div>
       </div>
       <div class="chips" aria-label="Supported hosts" style="margin-top:16px">
         <span class="chip">Vercel</span><span class="chip">Netlify</span><span class="chip">GitHub Pages</span><span class="chip">Cloudflare Pages</span><span class="chip">GitLab Pages</span><span class="chip">Render</span><span class="chip">Fly.io</span><span class="chip">Firebase</span>
@@ -142,7 +142,8 @@
     <section id="faq">
       <h2>Questions</h2>
       <details><summary>How long does it take?</summary><p>Usually about a minute after you submit. Then add the name in your host's custom domain settings.</p></details>
-      <details><summary>Why was my request rejected?</summary><p>The bot replies on your request with the reason. Common ones: the name is taken or reserved, the host is not supported, or your GitHub account is under 30 days old.</p></details>
+      <details><summary>Why do I add the name to my host first?</summary><p>If a name points at a host that does not have it attached, anyone else can attach it to their own project and serve their content on your address. So the bot only creates the record once your host has the name, and a daily check removes names whose host no longer has them. You are told on GitHub when that happens.</p></details>
+      <details><summary>Why was my request rejected?</summary><p>The bot replies on your request with the reason. Common ones: your host does not have the name attached yet, the name is taken or reserved, the host is not supported, or your GitHub account is under 30 days old.</p></details>
       <details><summary>Can I change or remove it later?</summary><p>Yes. Use the same form and choose <em>Change</em> or <em>Remove</em>. Only the owner can do this.</p></details>
       <details><summary>Can I use it for email?</summary><p>No. Subdomains are for websites only.</p></details>
       <details><summary>What is not allowed?</summary><p>Phishing, malware, impersonation, spam and anything illegal. Such names are removed. See the <a href="https://github.com/intuinode/omnexlab-registry/blob/main/TERMS.md">Terms</a>.</p></details>

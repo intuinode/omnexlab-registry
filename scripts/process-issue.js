@@ -5,6 +5,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { config, checkEntry, checkUniqueness, loadDomains, DOMAINS_DIR } = require('./lib');
+const { check, hostKind, howToAttach } = require('./probe');
 
 const FIELD_LABELS = {
   action: 'What do you want to do?',
@@ -95,10 +96,31 @@ function decide({ fields, author, existing, ageDays }) {
     entry,
     message:
       `**Done.** \`${host}\` ${op === 'update' ? 'now points to' : 'is being set up and points to'} \`${target}\`.\n\n` +
-      `It goes live in about a minute. Next, add \`${host}\` as a custom domain in your host ` +
-      `(Vercel: Project > Settings > Domains; Netlify: Domain management; GitHub Pages: Settings > Pages).\n\n` +
+      `It goes live in about a minute.\n\n` +
       `To change or remove it later, [submit another request](${formUrl}).`,
   };
+}
+
+// Refuse to publish a name before the owner's host has it attached: until then anyone else could
+// attach it to their own project and serve content on our domain (subdomain takeover).
+async function attachGate(res) {
+  const target = res.entry.record.CNAME;
+  const host = `${res.name}.${config.rootDomain}`;
+  const kind = hostKind(target);
+  const state = await check(target, host);
+  if (state === 'unattached') {
+    return fail(
+      `Your host does not have \`${host}\` attached yet, so we did not create it. ` +
+        `Until it is attached, someone else could claim the name on that host. ${howToAttach(kind, host)}`,
+      'Then submit this form again.'
+    );
+  }
+  if (state === 'unverifiable') {
+    res.message +=
+      `\n\n> **Important:** we cannot automatically verify this type of host. Add \`${host}\` as a custom domain in your hosting dashboard **right now**. ` +
+      `Until you do, someone else could claim the name there.`;
+  }
+  return res;
 }
 
 function apply(res) {
@@ -128,6 +150,7 @@ async function main() {
     const fields = parseIssue(process.env.ISSUE_BODY);
     const ageDays = isMaintainer(author) ? Infinity : await accountAgeDays(author);
     res = decide({ fields, author, existing: loadDomains(), ageDays });
+    if (res.ok && res.op !== 'remove') res = await attachGate(res);
     if (res.ok) apply(res);
   } catch (e) {
     console.error(e);

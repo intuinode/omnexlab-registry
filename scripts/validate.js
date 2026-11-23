@@ -4,6 +4,7 @@
 //   node scripts/validate.js --pr    validate a pull request (needs BASE_SHA, PR_AUTHOR)
 const { execFileSync } = require('node:child_process');
 const { config, checkEntry, checkUniqueness, loadDomains, ROOT } = require('./lib');
+const { check, hostKind, howToAttach } = require('./probe');
 
 const errors = [];
 const fail = (msg) => errors.push(msg);
@@ -65,6 +66,19 @@ async function validatePr() {
       if (String(owner).toLowerCase() !== author.toLowerCase()) {
         fail(`${file}: owner.github must be your own GitHub username ("${author}")`);
       }
+    }
+  }
+
+  // The host must already have the domain attached, otherwise someone else could claim it.
+  for (const [status, file] of changes) {
+    if (status === 'D' || !/^domains\/[a-z0-9-]+\.json$/.test(file)) continue;
+    const d = loadDomains().find((x) => `domains/${x.file}` === file);
+    const target = d && d.entry && d.entry.record && d.entry.record.CNAME;
+    if (!target || checkEntry(d.name, d.entry).length) continue;
+    const host = `${d.name}.${config.rootDomain}`;
+    const state = await check(target, host);
+    if (state === 'unattached') {
+      fail(`${file}: your host does not have ${host} attached yet. ${howToAttach(hostKind(target), host).replace(/[*`]/g, '')} Then re-run this check.`);
     }
   }
 

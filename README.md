@@ -4,10 +4,12 @@ Get a free `yourname.omnexlab.site` for your project, portfolio or demo. It is a
 
 ## Easiest way (about 2 minutes, no Git knowledge needed)
 
-1. Go to **https://omnexlab.site**, fill in the two boxes and press the button.
-2. GitHub opens a request form with your answers filled in. Press **Submit new issue**. Your GitHub username is picked up automatically.
-3. A bot checks the request, sets it up and replies on the issue in about a minute. Rejections explain why.
-4. Tell your host about the name. For **Vercel**: Project > Settings > Domains > add `yourname.omnexlab.site`. For Netlify: Domain management > Add a domain. For GitHub Pages: Settings > Pages > Custom domain.
+1. **Add the name to your host first.** For **Vercel**: Project > Settings > Domains > add `yourname.omnexlab.site`. For GitHub Pages: Settings > Pages > Custom domain. For Netlify: Domain management > Add a domain. A "DNS not configured" warning is fine at this point.
+2. Go to **https://omnexlab.site**, fill in the two boxes and press the button.
+3. GitHub opens a request form with your answers filled in. Press **Submit new issue**. Your GitHub username is picked up automatically.
+4. A bot checks the request, creates the record and replies on the issue in about a minute. Rejections explain why.
+
+**Why the order matters:** a name that points at a host which doesn't have it attached can be claimed by anyone on that host (a "subdomain takeover"). For Vercel and GitHub Pages the bot checks this before creating the record, and a daily job removes names whose host has stopped serving them (and opens an issue to tell you). Other hosts can't be checked automatically, so attach the name there immediately.
 
 HTTPS works immediately for visitors, because traffic goes through Cloudflare.
 
@@ -46,6 +48,7 @@ To change where it points or give the name up, submit the same form and choose *
 
 - `scripts/validate.js` checks entries and pull requests; `scripts/sync.js` makes Cloudflare DNS match `domains/`.
 - `Subdomain request` handles the issue form: it parses the form as data, validates it with the same rules, commits the change and replies. The requester's GitHub username comes from the issue itself.
+- `Monitor dangling subdomains` runs daily: it probes every target with the custom hostname, and removes entries whose host reports the domain as unattached (two probes, definite signatures only, at most 3 removals per run). `scripts/probe.js` has the signatures for GitHub Pages and Vercel.
 - `Validate` runs on pull requests with no secrets. `Automerge` merges valid single-file pull requests. `Deploy DNS` runs on every merge to `main`, on demand, and daily.
 - **Takedown:** delete the file in `domains/` (or add the user to `blockedUsers` in `config.json`) and merge. DNS updates in minutes. For an emergency, delete the record directly in the Cloudflare dashboard.
 - Run `npm test` and `npm run plan` locally (no dependencies to install).

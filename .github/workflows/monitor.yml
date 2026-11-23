@@ -1,0 +1,41 @@
+name: Monitor dangling subdomains
+
+on:
+  schedule:
+    - cron: '41 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: registry-writes
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Look for names whose host no longer has them attached
+        id: mon
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/monitor.js
+      - name: Commit removals and update DNS
+        if: steps.mon.outputs.removed != '0' && steps.mon.outputs.removed != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A domains
+          git commit -m "Remove subdomains that are no longer attached to their host"
+          git pull --rebase origin main
+          git push origin main
+          gh workflow run deploy.yml --ref main

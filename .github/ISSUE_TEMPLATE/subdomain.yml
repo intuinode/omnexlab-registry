@@ -6,7 +6,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        Fill in the boxes and press **Submit new issue**. A bot checks your request, sets it up and replies here.
+        **Before you submit:** add `yourname.omnexlab.site` as a custom domain in your host first
+        (Vercel: Project > Settings > Domains. GitHub Pages: Settings > Pages > Custom domain).
+        A "DNS not configured" warning there is fine. This stops anyone else claiming the name.
+
+        Then fill in the boxes and press **Submit new issue**. A bot checks your request, sets it up and replies here.
         Your GitHub username is taken from this issue, so you do not need to type it.
   - type: dropdown
     id: action
