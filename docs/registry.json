@@ -1,7 +1,7 @@
 {
   "description": "Subdomains currently registered under omnexlab.site. A name not listed here and not reserved (see rules.json) may be available.",
   "rootDomain": "omnexlab.site",
-  "count": 2,
+  "count": 3,
   "subdomains": [
     {
       "name": "aisalesagent",
@@ -14,6 +14,12 @@
       "host": "demo.omnexlab.site",
       "target": "intuinode.github.io",
       "trafficMode": "cloudflare"
+    },
+    {
+      "name": "mode-test",
+      "host": "mode-test.omnexlab.site",
+      "target": "intuinode.github.io",
+      "trafficMode": "direct"
     }
   ]
 }
