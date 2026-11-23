@@ -1,0 +1,6 @@
+Contact: https://github.com/intuinode/omnexlab-registry/security/advisories/new
+Contact: mailto:abuse@omnexlab.site
+Expires: 2027-10-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://omnexlab.site/.well-known/security.txt
+Policy: https://github.com/intuinode/omnexlab-registry/blob/main/SECURITY.md
