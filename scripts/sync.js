@@ -54,7 +54,7 @@ async function existingRecords() {
   for (const [name, content] of desired) {
     const r = have.get(name);
     if (!r) creates.push({ name, content });
-    else if (r.content !== content) updates.push({ id: r.id, name, content });
+    else if (r.content !== content || r.proxied !== true) updates.push({ id: r.id, name, content });
   }
   for (const r of existing) if (!desired.has(r.name)) deletes.push(r);
 
@@ -69,9 +69,11 @@ async function existingRecords() {
   }
   if (DRY) return console.log('dry run: nothing changed');
 
-  const base = { type: 'CNAME', ttl: 1, proxied: false, comment: MARK };
+  // proxied: true = traffic goes through Cloudflare, so visitors get HTTPS instantly from
+  // Cloudflare's wildcard certificate instead of waiting for each host to issue one.
+  const base = { type: 'CNAME', ttl: 1, proxied: true, comment: MARK };
   for (const c of creates) await cf('POST', `/zones/${ZONE}/dns_records`, { ...base, name: c.name, content: c.content });
-  for (const u of updates) await cf('PATCH', `/zones/${ZONE}/dns_records/${u.id}`, { content: u.content });
+  for (const u of updates) await cf('PATCH', `/zones/${ZONE}/dns_records/${u.id}`, { content: u.content, proxied: true });
   for (const d of deletes) await cf('DELETE', `/zones/${ZONE}/dns_records/${d.id}`);
   console.log('sync complete');
 })().catch((e) => { console.error(e.message); process.exit(1); });

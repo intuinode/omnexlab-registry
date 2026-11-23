@@ -4,38 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>omnexlab.site - free subdomains</title>
-<meta name="description" content="Get a free yourname.omnexlab.site subdomain for your project, portfolio or demo. No sign-up: just a GitHub pull request.">
+<meta name="description" content="Get a free yourname.omnexlab.site subdomain for your Vercel, Netlify or GitHub Pages site. Fill in a form, press a button, done.">
 <style>
-  :root { --bg:#fff; --fg:#14171c; --muted:#5b6472; --card:#f4f6f9; --accent:#2457d6; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#0f1319; --fg:#e8ecf2; --muted:#9aa5b5; --card:#181e27; --accent:#7ea2ff; } }
+  :root { --bg:#fff; --fg:#14171c; --muted:#5b6472; --card:#f4f6f9; --line:#d9dee6; --accent:#2457d6; --bad:#b3261e; --ok:#1a7f4b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f1319; --fg:#e8ecf2; --muted:#9aa5b5; --card:#181e27; --line:#2a3340; --accent:#7ea2ff; --bad:#ff8a80; --ok:#4fd18b; } }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
-  main { max-width:720px; margin:0 auto; padding:56px 16px 72px; }
+  main { max-width:720px; margin:0 auto; padding:48px 16px 72px; }
   h1 { font-size:2rem; line-height:1.2; margin:0 0 8px; }
-  p.lead { color:var(--muted); font-size:1.1rem; margin:0 0 28px; }
-  pre { background:var(--card); padding:16px; border-radius:8px; overflow-x:auto; font-size:.9rem; }
-  ol li { margin:6px 0; }
+  h2 { margin:36px 0 8px; font-size:1.25rem; }
+  p.lead { color:var(--muted); font-size:1.1rem; margin:0 0 24px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; }
+  label { display:block; font-weight:600; margin:14px 0 4px; }
+  input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--fg); font:inherit; }
+  .row { display:flex; gap:8px; align-items:center; }
+  .row span { color:var(--muted); white-space:nowrap; }
+  small { color:var(--muted); display:block; margin-top:4px; }
+  .err { color:var(--bad); min-height:1.4em; margin:10px 0 0; }
+  .btn { display:inline-block; margin-top:14px; background:var(--accent); color:#fff; padding:11px 20px; border-radius:8px; text-decoration:none; font-weight:600; border:0; font:inherit; font-weight:600; cursor:pointer; }
+  .btn[aria-disabled="true"] { opacity:.45; pointer-events:none; }
+  ol li, ul li { margin:6px 0; }
+  code { background:var(--card); padding:1px 6px; border-radius:4px; }
   a { color:var(--accent); }
-  .btn { display:inline-block; background:var(--accent); color:#fff; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:600; }
   footer { margin-top:40px; color:var(--muted); font-size:.9rem; }
 </style>
 </head>
 <body>
 <main>
   <h1>Free <code>yourname.omnexlab.site</code></h1>
-  <p class="lead">A free subdomain for your project, portfolio or demo. No account: just a GitHub pull request.</p>
-  <p><a class="btn" href="https://github.com/intuinode/omnexlab-registry">Get yours on GitHub</a></p>
+  <p class="lead">Point a free subdomain at your Vercel, Netlify or GitHub Pages site. HTTPS works immediately.</p>
 
-  <h2>How it works</h2>
-  <ol>
-    <li>Host your site anywhere (GitHub Pages, Netlify, Vercel, Cloudflare Pages and more).</li>
-    <li>Fork the repo and add one small file:
-<pre>{
-  "owner": { "github": "your-username" },
-  "record": { "CNAME": "your-username.github.io" }
-}</pre></li>
-    <li>Open a pull request. Valid requests are merged automatically and go live in minutes.</li>
-  </ol>
+  <div class="card">
+    <strong>Step 1: fill this in</strong>
+    <label for="name">Name you want</label>
+    <div class="row"><input id="name" placeholder="myapp" autocomplete="off" spellcheck="false"><span>.omnexlab.site</span></div>
+    <label for="gh">Your GitHub username</label>
+    <input id="gh" placeholder="octocat" autocomplete="off" spellcheck="false">
+    <label for="target">Where your site lives right now</label>
+    <input id="target" placeholder="myproject.vercel.app" autocomplete="off" spellcheck="false">
+    <small>Vercel: <code>yourproject.vercel.app</code> · Netlify: <code>yoursite.netlify.app</code> · GitHub Pages: <code>username.github.io</code></small>
+    <p class="err" id="err" role="alert"></p>
+    <strong>Step 2: press the button</strong><br>
+    <a class="btn" id="go" aria-disabled="true" href="#" target="_blank" rel="noopener">Create my subdomain on GitHub</a>
+    <small>GitHub opens a page with your file ready. Press <em>Propose new file</em>, then <em>Create pull request</em>. A bot approves valid requests in about a minute.</small>
+  </div>
+
+  <h2>Step 3: tell your host about the name</h2>
+  <ul>
+    <li><strong>Vercel:</strong> Project &rarr; Settings &rarr; Domains &rarr; add <code>yourname.omnexlab.site</code>. If Vercel shows a warning, wait a minute and press Refresh.</li>
+    <li><strong>Netlify:</strong> Site configuration &rarr; Domain management &rarr; Add a domain.</li>
+    <li><strong>GitHub Pages:</strong> Repository &rarr; Settings &rarr; Pages &rarr; Custom domain.</li>
+  </ul>
+  <p>Visitors get HTTPS straight away, because traffic goes through Cloudflare.</p>
 
   <h2>Good to know</h2>
   <ul>
@@ -51,5 +71,42 @@
     <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a>
   </footer>
 </main>
+<script>
+  // Same rules as the registry's server-side checks (the pull request check is the real gate).
+  var ALLOWED = ['github.io','gitlab.io','netlify.app','vercel.app','vercel-dns.com','pages.dev','workers.dev','onrender.com','fly.dev','surge.sh','web.app','firebaseapp.com','codeberg.page','readthedocs.io'];
+  var RESERVED = ['www','mail','email','smtp','imap','pop','pop3','ftp','ns','ns1','ns2','dns','admin','administrator','root','api','app','status','support','help','abuse','security','postmaster','webmaster','hostmaster','noreply','login','signin','signup','register','account','accounts','billing','pay','payment','payments','docs','blog','cdn','static','assets','git','github','autodiscover','autoconfig','registry','omnexlab','lab','labs'];
+  var SENSITIVE = ['paypal','google','apple','icloud','microsoft','outlook','amazon','facebook','instagram','whatsapp','netflix','binance','coinbase','metamask','wellsfargo','bankofamerica','login','signin','secure','verify','official'];
+  var $ = function (id) { return document.getElementById(id); };
+
+  function problem() {
+    var n = $('name').value.trim().toLowerCase(), g = $('gh').value.trim(), t = $('target').value.trim().toLowerCase();
+    if (!n && !g && !t) return '';
+    if (n) {
+      if (!/^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$/.test(n) || n.indexOf('--') > -1) return 'Name: 3-32 letters, digits or hyphens, not starting or ending with a hyphen.';
+      if (RESERVED.indexOf(n) > -1) return 'That name is reserved.';
+      for (var i = 0; i < SENSITIVE.length; i++) if (n.indexOf(SENSITIVE[i]) > -1) return 'Names containing "' + SENSITIVE[i] + '" are blocked to prevent impersonation.';
+    }
+    if (g && !/^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){0,38}$/i.test(g)) return 'That does not look like a GitHub username.';
+    if (t) {
+      if (!/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/.test(t)) return 'Where your site lives: enter just the address, like myproject.vercel.app (no https://).';
+      var ok = ALLOWED.some(function (s) { return t === s || t.slice(-(s.length + 1)) === '.' + s; });
+      if (!ok) return 'Supported hosts: ' + ALLOWED.join(', ') + '.';
+    }
+    return '';
+  }
+
+  function update() {
+    var n = $('name').value.trim().toLowerCase(), g = $('gh').value.trim(), t = $('target').value.trim().toLowerCase();
+    var p = problem();
+    $('err').textContent = p;
+    var go = $('go');
+    if (p || !n || !g || !t) { go.setAttribute('aria-disabled', 'true'); go.href = '#'; return; }
+    var json = JSON.stringify({ owner: { github: g }, record: { CNAME: t } }, null, 2) + '\n';
+    go.href = 'https://github.com/intuinode/omnexlab-registry/new/main?filename=' + encodeURIComponent('domains/' + n + '.json') + '&value=' + encodeURIComponent(json);
+    go.setAttribute('aria-disabled', 'false');
+  }
+  ['name', 'gh', 'target'].forEach(function (id) { $(id).addEventListener('input', update); });
+  update();
+</script>
 </body>
 </html>
