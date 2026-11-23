@@ -43,6 +43,6 @@ Developers can also send a pull request that edits `domains/`; `Validate` checks
 ## Things worth doing yourself
 
 - Create the `abuse@omnexlab.site` mailbox or alias (the legal pages publish it).
-- Verify the domain in GitHub (profile Settings > Pages > Add a domain) so nobody else can claim it for Pages.
+- **Do NOT verify omnexlab.site in GitHub (Settings > Pages > Add a domain).** Verification restricts the domain and its immediate subdomains to Pages sites owned by *your* account, which would stop every user from attaching `name.omnexlab.site` to their own GitHub Pages repo. Takeover protection comes from the attach-before-create check and the daily monitor instead.
 - Add a jurisdiction to the Terms, and consider registering a DMCA designated agent with the US Copyright Office.
 - The legal pages are plain-language templates, not legal advice. Have them reviewed.
