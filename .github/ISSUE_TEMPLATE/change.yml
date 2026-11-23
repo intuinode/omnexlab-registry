@@ -1,0 +1,44 @@
+name: "🔁 Change where my subdomain points"
+description: Point your existing subdomain at a different site. Only the owner can do this.
+title: "Change subdomain"
+labels: ["subdomain-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🔁 Change where your subdomain points
+
+        > ### ⚠️ Do this first
+        > Add `yourname.omnexlab.site` as a custom domain **in your new host** before you submit (Vercel: Settings → Domains. GitHub Pages: Settings → Pages).
+
+        Only the GitHub account that owns the subdomain can change it. The bot checks this and replies here.
+  - type: dropdown
+    id: action
+    attributes:
+      label: What do you want to do?
+      options:
+        - Change where my subdomain points
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Subdomain name
+      description: Just the first part. For myapp.omnexlab.site, type myapp.
+      placeholder: myapp
+    validations:
+      required: true
+  - type: input
+    id: target
+    attributes:
+      label: Where your site lives (address only)
+      description: The new address, for example newproject.vercel.app or username.github.io.
+      placeholder: newproject.vercel.app
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        This issue is public.

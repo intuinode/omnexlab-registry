@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Guides and troubleshooting
+    url: https://omnexlab.site/guides.html
+    about: Step-by-step help for Vercel and GitHub Pages.
+  - name: 📜 Terms, privacy and DMCA
+    url: https://omnexlab.site/terms.html
+    about: The rules for using the service.

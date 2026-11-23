@@ -1,57 +1,82 @@
-# omnexlab.site: free subdomains
+<div align="center">
 
-Get a free `yourname.omnexlab.site` for your project, portfolio or demo. It is a DNS-only registry: you keep hosting your site wherever you like (GitHub Pages, Netlify, Vercel, Cloudflare Pages and similar), and we point the name at it.
+<img src="docs/favicon.svg" width="72" height="72" alt="omnexlab logo">
 
-## Easiest way (about 2 minutes, no Git knowledge needed)
+# omnexlab.site
 
-1. **Add the name to your host first.** For **Vercel**: Project > Settings > Domains > add `yourname.omnexlab.site`. For GitHub Pages: Settings > Pages > Custom domain. For Netlify: Domain management > Add a domain. A "DNS not configured" warning is fine at this point.
-2. Go to **https://omnexlab.site**, fill in the two boxes and press the button.
-3. GitHub opens a request form with your answers filled in. Press **Submit new issue**. Your GitHub username is picked up automatically.
-4. A bot checks the request, creates the record and replies on the issue in about a minute. Rejections explain why.
+**Free subdomains for your projects.** Get `yourname.omnexlab.site` for your Vercel or GitHub Pages site, with HTTPS included.
 
-**Why the order matters:** a name that points at a host which doesn't have it attached can be claimed by anyone on that host (a "subdomain takeover"). For Vercel and GitHub Pages the bot checks this before creating the record, and a daily job removes names whose host has stopped serving them (and opens an issue to tell you). Other hosts can't be checked automatically, so attach the name there immediately.
+[![Deploy DNS](https://github.com/intuinode/omnexlab-registry/actions/workflows/deploy.yml/badge.svg)](https://github.com/intuinode/omnexlab-registry/actions/workflows/deploy.yml)
+[![Monitor](https://github.com/intuinode/omnexlab-registry/actions/workflows/monitor.yml/badge.svg)](https://github.com/intuinode/omnexlab-registry/actions/workflows/monitor.yml)
 
-HTTPS works immediately for visitors, because traffic goes through Cloudflare.
+[**🌐 Get a subdomain**](https://omnexlab.site) &nbsp;·&nbsp; [📖 Guides](https://omnexlab.site/guides.html) &nbsp;·&nbsp; [🔁 Change or cancel](https://omnexlab.site/manage.html) &nbsp;·&nbsp; [🚩 Report abuse](https://omnexlab.site/dmca.html)
 
-## The manual way
+</div>
 
-1. **Host your site** somewhere that supports custom domains (for example Vercel or GitHub Pages).
-2. **Fork this repo** and add one file, `domains/yourname.json`:
+---
 
-   ```json
-   {
-     "owner": { "github": "your-github-username" },
-     "record": { "CNAME": "your-github-username.github.io" },
-     "description": "My portfolio"
-   }
-   ```
+## ✨ Get yours in 3 steps
 
-3. **Open a pull request.** Checks run automatically. If everything is valid it is merged by a bot and the record goes live within a few minutes.
-4. **Tell your host about the name.** For GitHub Pages: repository Settings > Pages > Custom domain > `yourname.omnexlab.site`. HTTPS is provided by your host.
+| | Step | |
+|---|---|---|
+| **1** | **Add the name to your host first.** In Vercel: *Project → Settings → Domains*. In GitHub Pages: *Settings → Pages → Custom domain*. A "DNS not configured" warning is fine. | 🛡️ prevents takeovers |
+| **2** | **Request it** on **[omnexlab.site](https://omnexlab.site)**. Fill in two boxes and press the button, then **Submit new issue** on GitHub. | ~30 seconds |
+| **3** | **It goes live.** A bot checks that your host has the name, creates the record and replies on your issue. | ~1 minute |
 
-To change where it points or give the name up, submit the same form and choose **Change** or **Remove** (only the owner can). Developers can also edit or delete their file with a pull request.
+> 💡 Your GitHub username is picked up automatically from the issue. No forks, pull requests or JSON needed.
 
-## Rules
+## 🧰 Supported hosts
 
-- One subdomain per GitHub account.
-- Your GitHub account must be at least 30 days old, and `owner.github` must be you.
-- Names: 3-32 characters, lowercase letters, digits and hyphens. Reserved names and names containing big-brand or "login/secure/verify" words are blocked to stop impersonation.
-- Only a `CNAME` record is supported, and only to these hosts: github.io, gitlab.io, netlify.app, vercel.app, vercel-dns.com, pages.dev, workers.dev, onrender.com, fly.dev, surge.sh, web.app, firebaseapp.com, codeberg.page, readthedocs.io.
-- No email on subdomains.
-- No phishing, malware, impersonation, spam, illegal content or anything else forbidden by the [Terms](TERMS.md). Names can be removed without notice.
+| Host | Automatic check | Notes |
+|---|:---:|---|
+| **Vercel** | ✅ | `project.vercel.app` or Vercel's CNAME |
+| **GitHub Pages** | ✅ | `username.github.io` |
+| Netlify, Cloudflare Pages, GitLab Pages, Render, Fly.io, Firebase | ⚠️ | Accepted, but we can't verify them. **Attach the name in your host immediately.** |
 
-## Policies
+## 🔁 Change or cancel
 
-[Terms](TERMS.md) | [Privacy](PRIVACY.md) | [Abuse and takedowns](ABUSE.md)
+Use the [manage page](https://omnexlab.site/manage.html) to point the name somewhere else or release it. Only the owner can do this.
 
-## For the maintainer
+## 📏 Rules in brief
 
-- `scripts/validate.js` checks entries and pull requests; `scripts/sync.js` makes Cloudflare DNS match `domains/`.
-- `Subdomain request` handles the issue form: it parses the form as data, validates it with the same rules, commits the change and replies. The requester's GitHub username comes from the issue itself.
-- `Monitor dangling subdomains` runs daily: it probes every target with the custom hostname, and removes entries whose host reports the domain as unattached (two probes, definite signatures only, at most 3 removals per run). `scripts/probe.js` has the signatures for GitHub Pages and Vercel.
-- `Validate` runs on pull requests with no secrets. `Automerge` merges valid single-file pull requests. `Deploy DNS` runs on every merge to `main`, on demand, and daily.
-- **Takedown:** delete the file in `domains/` (or add the user to `blockedUsers` in `config.json`) and merge. DNS updates in minutes. For an emergency, delete the record directly in the Cloudflare dashboard.
-- Run `npm test` and `npm run plan` locally (no dependencies to install).
-- Add your own subdomain quickly: `node scripts/add.js myapp myapp.vercel.app`, then commit and push.
-- All records are created with the Cloudflare proxy on, and the zone's SSL mode is **Full**. The sync script also flips any record that drifted back to proxied.
-- The legal pages are plain-language templates, not legal advice. Have them reviewed before relying on them.
+- One subdomain per GitHub account, and the account must be at least 30 days old.
+- Names: 3-32 letters, digits or hyphens. Reserved names and look-alikes of big brands are blocked.
+- Only `CNAME` records, only to the supported hosts above.
+- **No** phishing, malware, impersonation, spam, illegal content, or email on subdomains.
+- **We only provide DNS. We do not host or control your site and are not responsible for it.**
+- We can remove any subdomain, or end the service, at any time and without notice.
+
+📜 Full text: [Terms](https://omnexlab.site/terms.html) · [Privacy](https://omnexlab.site/privacy.html) · [DMCA & abuse](https://omnexlab.site/dmca.html) · [Plans & sponsors](https://omnexlab.site/plans.html)
+
+## 🚩 Report abuse or copyright infringement
+
+Use the [abuse and DMCA page](https://omnexlab.site/dmca.html) or email **abuse@omnexlab.site**. We review every report and aim to act within **48 hours**.
+
+## 🛡️ How we prevent subdomain takeover
+
+A name that points at a host which doesn't have it attached can be claimed by anyone on that host. So:
+
+1. For Vercel and GitHub Pages the bot **checks the host before creating the record**, and refuses if the name isn't attached.
+2. A **daily job** probes every name and removes those whose host stopped serving them, then opens an issue to tell the owner.
+
+## 💚 Plans and sponsors
+
+Free today. Paid options and sponsorship may come later; sponsorship never buys influence or special treatment. Details: [Plans & sponsors](https://omnexlab.site/plans.html).
+
+---
+
+<details>
+<summary><strong>🔧 For the maintainer</strong></summary>
+
+<br>
+
+- **Flow:** the issue forms (`.github/ISSUE_TEMPLATE`) → `Subdomain request` workflow → `scripts/process-issue.js` (validates, probes the host, commits) → `Deploy DNS` → `scripts/sync.js` writes Cloudflare DNS.
+- `scripts/validate.js` checks entries and pull requests; `Validate` runs on pull requests with no secrets, and `Automerge` merges valid single-file pull requests.
+- `Monitor dangling subdomains` runs daily: it probes every target with the custom hostname and removes entries whose host reports the domain as unattached (two probes, definite signatures only, at most 3 removals per run). Signatures for GitHub Pages and Vercel live in `scripts/probe.js`.
+- **Takedown:** delete the file in `domains/` (or add the user to `blockedUsers` in `config.json`) and push. DNS updates in minutes. In an emergency, delete the record in the Cloudflare dashboard.
+- All records are created **proxied** (instant HTTPS from Cloudflare's certificate; SSL mode *Full*). A maintainer can set `"proxied": false` on an entry, for example for Vercel's own protection.
+- Add your own name quickly: `node scripts/add.js myapp myapp.vercel.app`, then commit and push.
+- Local checks: `npm test` and `npm run plan` (no dependencies to install).
+- The website is the static `docs/` folder, published with GitHub Pages. The legal pages there are plain-language templates, not legal advice; have them reviewed before relying on them.
+
+</details>

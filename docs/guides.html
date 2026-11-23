@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guides - omnexlab.site</title>
+<meta name="description" content="Step-by-step: point an omnexlab.site subdomain at your Vercel or GitHub Pages site, and fix common problems.">
+<meta name="theme-color" content="#4f46e5">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#g)"/><circle cx="16" cy="16" r="6" fill="none" stroke="#fff" stroke-width="3"/></svg>omnexlab</a>
+    <nav aria-label="Main"><a href="/">Home</a><a href="/guides.html" aria-current="page">Guides</a><a href="/manage.html">Manage</a><a href="/plans.html">Plans</a><a class="ext" href="https://github.com/intuinode/omnexlab-registry">GitHub</a></nav>
+  </header>
+
+  <main id="main" class="page prose">
+    <h1>Guides</h1>
+    <p class="meta">Point your subdomain at a site you already host.</p>
+
+    <div class="callout"><strong>Golden rule:</strong> add the name to your host <em>first</em>, then request it. Until your host has the name, anyone else could claim it, so the bot refuses to create it.</div>
+    <div class="toc"><strong>On this page</strong><br><a href="#vercel">Vercel</a><a href="#github">GitHub Pages</a><a href="#others">Other hosts</a><a href="#trouble">Troubleshooting</a></div>
+
+    <h2 id="vercel">Vercel</h2>
+    <ol>
+      <li>Open your project in Vercel, then <strong>Settings &rarr; Domains</strong>.</li>
+      <li>Type <code>yourname.omnexlab.site</code> and add it. Vercel will warn that DNS is not configured yet. That is expected.</li>
+      <li>Go to the <a href="/#get">request form</a>. In "Where your site lives" enter your project's address, for example <code>myproject.vercel.app</code>.</li>
+      <li>Press the button, then <strong>Submit new issue</strong> on GitHub.</li>
+      <li>Within about a minute the bot replies "Done". Back in Vercel press <strong>Refresh</strong> on the domain.</li>
+    </ol>
+    <div class="callout info"><strong>"Proxy Detected" warning in Vercel?</strong> Our names go through Cloudflare, which gives you instant HTTPS. Vercel recommends no proxy, so it shows a notice. Your site still works. If you want Vercel's own protection instead, tell us when you request, and we can look at it.</div>
+
+    <h2 id="github">GitHub Pages</h2>
+    <ol>
+      <li>In your repository open <strong>Settings &rarr; Pages</strong>.</li>
+      <li>Put <code>yourname.omnexlab.site</code> in <strong>Custom domain</strong> and save. GitHub says the DNS check failed for now. That is expected.</li>
+      <li>On the <a href="/#get">request form</a> enter <code>yourusername.github.io</code> as the address.</li>
+      <li>Submit the request. When the bot says "Done", return to Settings &rarr; Pages. It may take a few minutes to go green.</li>
+    </ol>
+
+    <h2 id="others">Other hosts</h2>
+    <p>Netlify, Cloudflare Pages, GitLab Pages, Render, Fly.io and Firebase addresses are accepted. We cannot check them automatically, so add the name there <strong>immediately</strong> after requesting it. Until then someone else could claim it.</p>
+
+    <h2 id="trouble">Troubleshooting</h2>
+    <table>
+      <thead><tr><th>What you see</th><th>What to do</th></tr></thead>
+      <tbody>
+        <tr><td>"Your host does not have the name attached"</td><td>Add <code>yourname.omnexlab.site</code> in your host first (see above), then submit the form again.</td></tr>
+        <tr><td>"The name is taken" or "reserved"</td><td>Pick another name. Names that look like big brands or contain words like <code>login</code> or <code>secure</code> are blocked.</td></tr>
+        <tr><td>"Account must be at least 30 days old"</td><td>Use a GitHub account that is older, or try again later.</td></tr>
+        <tr><td>Site loads but shows the host's 404</td><td>The name is not attached to the right project at your host. Check the domain settings there.</td></tr>
+        <tr><td>Padlock or certificate error</td><td>Wait a few minutes after the bot says "Done". Make sure the name is attached to your host.</td></tr>
+        <tr><td>My subdomain disappeared</td><td>If your host stopped serving the name, we remove it to prevent a takeover and open an issue to tell you. Attach it again and re-request.</td></tr>
+        <tr><td>I want to move or stop using it</td><td>Use the <a href="/manage.html">manage page</a>.</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    <span>&copy; omnexlab.site &middot; DNS only, we do not host your site.</span>
+    <span class="links"><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/dmca.html">DMCA &amp; abuse</a><a href="/plans.html">Plans &amp; sponsors</a><a href="https://github.com/intuinode/omnexlab-registry">GitHub</a></span>
+  </footer>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

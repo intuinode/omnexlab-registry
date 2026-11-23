@@ -1,17 +1,22 @@
-name: Get, change or remove a subdomain
-description: Request a free yourname.omnexlab.site (handled automatically in about a minute)
+name: "🌐 Get a free subdomain"
+description: Request yourname.omnexlab.site. A bot sets it up in about a minute.
 title: "Subdomain request"
 labels: ["subdomain-request"]
 body:
   - type: markdown
     attributes:
       value: |
-        **Before you submit:** add `yourname.omnexlab.site` as a custom domain in your host first
-        (Vercel: Project > Settings > Domains. GitHub Pages: Settings > Pages > Custom domain).
-        A "DNS not configured" warning there is fine. This stops anyone else claiming the name.
+        ## 🌐 Get your free subdomain
 
-        Then fill in the boxes and press **Submit new issue**. A bot checks your request, sets it up and replies here.
-        Your GitHub username is taken from this issue, so you do not need to type it.
+        > ### ⚠️ Do this first
+        > Add `yourname.omnexlab.site` as a custom domain **in your host** before you submit.
+        > - **Vercel:** Project → Settings → Domains
+        > - **GitHub Pages:** Repository → Settings → Pages → Custom domain
+        >
+        > A "DNS not configured" warning there is fine. This stops anyone else claiming the name.
+
+        Then fill in the boxes and press **Submit new issue**. Your GitHub username is picked up automatically, and a bot replies here in about a minute.
+        📖 Need help? See the [guides](https://omnexlab.site/guides.html).
   - type: dropdown
     id: action
     attributes:
@@ -35,11 +40,12 @@ body:
     id: target
     attributes:
       label: Where your site lives (address only)
-      description: Not needed when removing. Vercel myproject.vercel.app, Netlify mysite.netlify.app, GitHub Pages username.github.io.
+      description: Not needed when removing. Vercel myproject.vercel.app, GitHub Pages username.github.io.
       placeholder: myproject.vercel.app
     validations:
       required: false
   - type: markdown
     attributes:
       value: |
-        By submitting you agree to the [Terms](https://github.com/intuinode/omnexlab-registry/blob/main/TERMS.md).
+        ---
+        By submitting you agree to the [Terms](https://omnexlab.site/terms.html) and [Privacy Policy](https://omnexlab.site/privacy.html). This issue and your GitHub username are **public**. We only provide DNS and are not responsible for your site.

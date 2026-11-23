@@ -1,0 +1,42 @@
+name: "🚩 Report abuse"
+description: Phishing, malware, impersonation, illegal content or a rule violation on an omnexlab.site subdomain.
+title: "Abuse report: "
+labels: ["abuse"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🚩 Report abuse
+
+        > **This issue is public.** For phishing, malware, threats or anything sensitive, email **abuse@omnexlab.site** instead.
+        > For copyright claims, follow the [DMCA process](https://omnexlab.site/dmca.html#copyright) (a written notice is required).
+
+        We review every report and aim to act **within 48 hours**. We only provide the DNS name, so please also report to the site's host.
+  - type: input
+    id: subdomain
+    attributes:
+      label: Subdomain
+      placeholder: name.omnexlab.site
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong?
+      options:
+        - Phishing or scam
+        - Malware
+        - Impersonation
+        - Illegal content
+        - Harassment or hate
+        - Spam
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details and evidence
+      description: What you saw, links, and screenshots.
+    validations:
+      required: true

@@ -46,7 +46,11 @@ function actionOf(text) {
 const fail = (...problems) => ({
   ok: false,
   // Plain strings may echo user input, so they are sanitised. {raw} is text we composed ourselves.
-  message: `**Your request could not be applied.**\n\n${problems.map((p) => `- ${p && p.raw ? p.raw : safe(p)}`).join('\n')}\n\nFix the problem and [submit a new request](${formUrl}).`,
+  message:
+    `### ❌ We couldn't apply your request\n\n` +
+    `${problems.map((p) => `- ${p && p.raw ? p.raw : safe(p)}`).join('\n')}\n\n` +
+    `**What now?** Fix the points above and [submit a new request](${formUrl}). ` +
+    `Stuck? The [guides](https://omnexlab.site/guides.html) cover the common problems.`,
 });
 
 function decide({ fields, author, existing, ageDays }) {
@@ -65,7 +69,16 @@ function decide({ fields, author, existing, ageDays }) {
   if (op === 'remove') {
     if (!cur) return fail(`There is no subdomain called "${name}".`);
     if (!owns && !maint) return fail('Only the owner of a subdomain can remove it.');
-    return { ok: true, op, name, message: `**Done.** \`${name}.${config.rootDomain}\` has been removed. The DNS record disappears within a few minutes.` };
+    return {
+      ok: true,
+      op,
+      name,
+      message:
+        `### \u{1F44B} Subdomain cancelled\n\n` +
+        `\`${name}.${config.rootDomain}\` has been released. The DNS record disappears within a few minutes.\n\n` +
+        `Your site itself is untouched, because we never hosted it. You can also remove the custom domain in your host.\n\n` +
+        `Changed your mind? You can [request a subdomain](${formUrl}) again, but the name may be taken by then.`,
+    };
   }
 
   if (!target) return fail('Please tell us where your site lives, for example myproject.vercel.app.');
@@ -96,9 +109,13 @@ function decide({ fields, author, existing, ageDays }) {
     name,
     entry,
     message:
-      `**Done.** \`${host}\` ${op === 'update' ? 'now points to' : 'is being set up and points to'} \`${target}\`.\n\n` +
-      `It goes live in about a minute.\n\n` +
-      `To change or remove it later, [submit another request](${formUrl}).`,
+      `### ✅ ${op === 'update' ? 'Subdomain updated' : 'All set'}\n\n` +
+      `| | |\n|---|---|\n` +
+      `| **Address** | \`https://${host}\` |\n` +
+      `| **Points to** | \`${target}\` |\n` +
+      `| **Status** | Going live now, usually within a minute |\n\n` +
+      `**Next:** open your address in a minute. If it shows a certificate or 404 error, check the [guides](https://omnexlab.site/guides.html).\n\n` +
+      `Need to change or cancel it later? Use the [manage page](https://omnexlab.site/manage.html).`,
   };
 }
 
@@ -155,7 +172,7 @@ async function main() {
     if (res.ok) apply(res);
   } catch (e) {
     console.error(e);
-    res = { ok: false, message: '**Something went wrong** while processing your request, so nothing was changed. The maintainer can see the failed run. Please try again later.' };
+    res = { ok: false, message: `### ⚠️ Something went wrong\n\nWe hit an error while processing your request, so **nothing was changed**. The maintainer can see the failed run. Please try again later.` };
   }
   fs.writeFileSync(process.env.RESULT_FILE || 'result.md', res.message + '\n');
   emit('ok', res.ok);

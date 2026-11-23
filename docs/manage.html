@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manage your subdomain - omnexlab.site</title>
+<meta name="description" content="Change where your omnexlab.site subdomain points, or cancel it.">
+<meta name="theme-color" content="#4f46e5">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#g)"/><circle cx="16" cy="16" r="6" fill="none" stroke="#fff" stroke-width="3"/></svg>omnexlab</a>
+    <nav aria-label="Main"><a href="/">Home</a><a href="/guides.html">Guides</a><a href="/manage.html" aria-current="page">Manage</a><a href="/plans.html">Plans</a><a class="ext" href="https://github.com/intuinode/omnexlab-registry">GitHub</a></nav>
+  </header>
+
+  <main id="main">
+    <div class="hero" style="padding-bottom:0">
+      <span class="eyebrow">Manage</span>
+      <h1>Change or <span class="grad">cancel</span> your subdomain</h1>
+      <p class="lead">Both open a short request form on GitHub. You must be signed in to the GitHub account that owns the subdomain.</p>
+    </div>
+
+    <div class="card" id="change">
+      <h2>Change where it points</h2>
+      <small style="margin:0 0 4px">Moved to a new project or host? Add the name to the new host first, then request the change.</small>
+      <label for="hname">Your subdomain</label>
+      <div class="row"><input id="hname" placeholder="myapp" autocomplete="off" spellcheck="false" autocapitalize="none"><span class="suffix">.omnexlab.site</span></div>
+      <label for="htarget">New address of your site</label>
+      <input id="htarget" placeholder="newproject.vercel.app" autocomplete="off" spellcheck="false" autocapitalize="none">
+      <p class="err" id="herr" role="alert"></p>
+      <a class="btn ext" id="change-btn" aria-disabled="true" href="#">Request the change</a>
+    </div>
+
+    <div class="card danger" id="cancel">
+      <h2>Cancel your subdomain</h2>
+      <small style="margin:0 0 4px">This releases the name. The DNS record is removed within a few minutes and your site stops answering on this address. Your site itself is not touched, because we never hosted it.</small>
+      <label for="cname">Subdomain to cancel</label>
+      <div class="row"><input id="cname" placeholder="myapp" autocomplete="off" spellcheck="false" autocapitalize="none"><span class="suffix">.omnexlab.site</span></div>
+      <p class="err" id="cerr" role="alert"></p>
+      <a class="btn bad ext" id="cancel-btn" aria-disabled="true" href="#">Cancel my subdomain</a>
+      <small>Cancelling cannot be undone, and the name may be taken by someone else afterwards. Only the owner (the GitHub account that requested it) can cancel.</small>
+    </div>
+
+    <section>
+      <h2>Good to know</h2>
+      <div class="grid">
+        <div class="tile"><h3>Only the owner</h3><p>The bot compares the GitHub account on your request with the owner of the name. Others are refused.</p></div>
+        <div class="tile"><h3>Remember your host</h3><p>After cancelling, you can also remove the custom domain from Vercel or GitHub Pages. Leaving it is harmless.</p></div>
+        <div class="tile"><h3>Lost access?</h3><p>If you cannot use the owning GitHub account any more, <a href="/dmca.html">contact us</a> and we will help.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>&copy; omnexlab.site &middot; DNS only, we do not host your site.</span>
+    <span class="links"><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/dmca.html">DMCA &amp; abuse</a><a href="/plans.html">Plans &amp; sponsors</a><a href="https://github.com/intuinode/omnexlab-registry">GitHub</a></span>
+  </footer>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+name: "🗑️ Cancel my subdomain"
+description: Release your omnexlab.site subdomain. Only the owner can do this.
+title: "Cancel subdomain"
+labels: ["subdomain-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🗑️ Cancel your subdomain
+
+        This **releases the name**. The DNS record is removed within a few minutes and your address stops working.
+        Your site itself is not touched, because we never hosted it. The name may be taken by someone else afterwards.
+
+        Only the GitHub account that requested the subdomain can cancel it. The bot checks this and replies here.
+  - type: dropdown
+    id: action
+    attributes:
+      label: What do you want to do?
+      options:
+        - Remove my subdomain
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Subdomain name
+      description: Just the first part. For myapp.omnexlab.site, type myapp.
+      placeholder: myapp
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        Need to move it instead? Use the [change form](https://omnexlab.site/manage.html#change). This issue is public.

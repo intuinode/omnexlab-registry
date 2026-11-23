@@ -1,0 +1,20 @@
+name: "💚 Sponsorship or plans question"
+description: Ask about sponsoring the project or about future paid plans.
+title: "Sponsorship / plans: "
+labels: ["sponsorship"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 💚 Sponsorship and plans
+
+        Sponsorship is not open yet. Tell us what you have in mind and we will reply here.
+        Sponsorships are voluntary gifts and **do not buy influence or special treatment**. See [Plans & sponsors](https://omnexlab.site/plans.html).
+
+        > This issue is public. Do not post payment or private details.
+  - type: textarea
+    id: message
+    attributes:
+      label: Your message
+    validations:
+      required: true
