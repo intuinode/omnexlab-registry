@@ -45,7 +45,8 @@ function actionOf(text) {
 
 const fail = (...problems) => ({
   ok: false,
-  message: `**Your request could not be applied.**\n\n${problems.map((p) => `- ${safe(p)}`).join('\n')}\n\nFix the problem and [submit a new request](${formUrl}).`,
+  // Plain strings may echo user input, so they are sanitised. {raw} is text we composed ourselves.
+  message: `**Your request could not be applied.**\n\n${problems.map((p) => `- ${p && p.raw ? p.raw : safe(p)}`).join('\n')}\n\nFix the problem and [submit a new request](${formUrl}).`,
 });
 
 function decide({ fields, author, existing, ageDays }) {
@@ -110,9 +111,9 @@ async function attachGate(res) {
   const state = await check(target, host);
   if (state === 'unattached') {
     return fail(
-      `Your host does not have \`${host}\` attached yet, so we did not create it. ` +
-        `Until it is attached, someone else could claim the name on that host. ${howToAttach(kind, host)}`,
-      'Then submit this form again.'
+      { raw: `Your host does not have \`${host}\` attached yet, so we did not create it. ` +
+        `Until it is attached, someone else could claim the name on that host. ${howToAttach(kind, host)}` },
+      { raw: 'Then submit this form again.' }
     );
   }
   if (state === 'unverifiable') {
