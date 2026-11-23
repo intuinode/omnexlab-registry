@@ -46,3 +46,17 @@ Developers can also send a pull request that edits `domains/`; `Validate` checks
 - **Do NOT verify omnexlab.site in GitHub (Settings > Pages > Add a domain).** Verification restricts the domain and its immediate subdomains to Pages sites owned by *your* account, which would stop every user from attaching `name.omnexlab.site` to their own GitHub Pages repo. Takeover protection comes from the attach-before-create check and the daily monitor instead.
 - Add a jurisdiction to the Terms, and consider registering a DMCA designated agent with the US Copyright Office.
 - The legal pages are plain-language templates, not legal advice. Have them reviewed.
+
+## Attribution badge Worker (optional, currently on the demo host only)
+
+`worker/badge.mjs` is a Cloudflare Worker that adds a small "Free subdomain by omnexlab.site" badge to HTML pages served through the Cloudflare proxy. It does nothing unless a route is attached.
+
+```
+export CLOUDFLARE_API_TOKEN=... CLOUDFLARE_ACCOUNT_ID=... CLOUDFLARE_ZONE_ID=...
+node scripts/deploy-worker.js status                       # which routes exist
+node scripts/deploy-worker.js route "name.omnexlab.site/*"  # turn it on for one host
+node scripts/deploy-worker.js route "*.omnexlab.site/*"     # turn it on for every subdomain
+node scripts/deploy-worker.js off                           # remove all routes: instant rollback
+```
+
+Known limits: it only affects proxied ("Through Cloudflare") subdomains, never Direct ones. The Workers free plan allows 100,000 requests a day across all sites; past that visitors get Cloudflare error 1027, so enable it for everyone only on a paid plan or after confirming the route's failure mode. Strict Content-Security-Policy on a user's site can leave the badge unstyled. Before enabling it for users, the Terms, Privacy page and README must say that the service adds the badge.
