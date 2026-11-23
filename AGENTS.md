@@ -30,14 +30,14 @@ npm test              # all tests (Node 20+, no dependencies to install)
 npm run validate      # validate every file in domains/
 npm run plan          # dry-run of the Cloudflare sync (no credentials needed)
 node scripts/build-public.js   # regenerate docs/registry.json and docs/rules.json
-node scripts/add.js NAME TARGET [github-user]   # create domains/NAME.json after validating
+node scripts/seo-apply.js      # re-apply SEO tags and regenerate docs/sitemap.xml (after adding or renaming a page)
 ```
 
 ## Before you change anything
 
 1. Run `npm test`. Keep it green; add tests with new behaviour.
 2. If you change rules in `config.json`, also update the copies in `docs/app.js` (client-side hints), `docs/llms.txt`, `docs/llms-full.txt` and the README. `docs/rules.json` is generated, so do not edit it by hand.
-3. If you change a legal page, change `docs/*.html` (the single source of truth). `TERMS.md`, `PRIVACY.md` and `ABUSE.md` are only pointers.
+3. If you change a legal page, change `docs/*.html`; those pages are the single source of truth.
 4. Keep the website free of cookies, analytics and third-party scripts, and keep it working with JavaScript disabled (animations are progressive enhancement and respect `prefers-reduced-motion`).
 
 ## Hard rules
@@ -61,4 +61,4 @@ Use only public data and the user's own account:
 
 Do not ask for tokens or passwords, and do not submit for a user without their explicit approval.
 
-More detail for maintainers: [MAINTAINING.md](MAINTAINING.md). Machine-readable summary: <https://omnexlab.site/llms.txt>.
+Machine-readable summary: <https://omnexlab.site/llms.txt>.
