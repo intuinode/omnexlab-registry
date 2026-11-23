@@ -37,11 +37,10 @@ test('accepts Vercel project CNAME targets but not look-alikes', () => {
   assert.ok(checkTarget('abc.vercel-dns-17.com').length > 0);
 });
 
-test('only maintainers may set proxied', () => {
-  assert.ok(checkEntry('my-app', { ...good, proxied: false }).length > 0);
-  const m = { owner: { github: 'intuinode' }, record: good.record };
-  assert.deepEqual(checkEntry('my-app', { ...m, proxied: false }), []);
-  assert.ok(checkEntry('my-app', { ...m, proxied: 'no' }).length > 0);
+test('anyone may choose direct (unproxied) mode, but it must be a boolean', () => {
+  assert.deepEqual(checkEntry('my-app', { ...good, proxied: false }), []);
+  assert.deepEqual(checkEntry('my-app', { ...good, proxied: true }), []);
+  assert.ok(checkEntry('my-app', { ...good, proxied: 'no' }).length > 0);
 });
 
 test('rejects wrong record types and extra fields', () => {

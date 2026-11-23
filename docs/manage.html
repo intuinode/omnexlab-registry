@@ -6,6 +6,7 @@
 <title>Manage your subdomain - omnexlab.site</title>
 <meta name="description" content="Change where your omnexlab.site subdomain points, or cancel it.">
 <meta name="theme-color" content="#4f46e5">
+<link rel="canonical" href="https://omnexlab.site/manage.html">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
 </head>
@@ -24,13 +25,20 @@
       <p class="lead">Both open a short request form on GitHub. You must be signed in to the GitHub account that owns the subdomain.</p>
     </div>
 
-    <div class="card" id="change">
+    <div class="card glow" id="change">
       <h2>Change where it points</h2>
       <small style="margin:0 0 4px">Moved to a new project or host? Add the name to the new host first, then request the change.</small>
       <label for="hname">Your subdomain</label>
       <div class="row"><input id="hname" placeholder="myapp" autocomplete="off" spellcheck="false" autocapitalize="none"><span class="suffix">.omnexlab.site</span></div>
       <label for="htarget">New address of your site</label>
       <input id="htarget" placeholder="newproject.vercel.app" autocomplete="off" spellcheck="false" autocapitalize="none">
+      <label for="hmode">Traffic mode</label>
+      <select id="hmode">
+        <option>Keep the current setting</option>
+        <option>Through Cloudflare (instant HTTPS, recommended for public sites)</option>
+        <option>Direct to my host (DNS only, HTTPS from your host)</option>
+      </select>
+      <small>Direct means HTTPS terminates at your own host instead of at Cloudflare. Pick it for anything sensitive.</small>
       <p class="err" id="herr" role="alert"></p>
       <a class="btn ext" id="change-btn" aria-disabled="true" href="#">Request the change</a>
     </div>

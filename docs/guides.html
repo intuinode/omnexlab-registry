@@ -6,6 +6,7 @@
 <title>Guides - omnexlab.site</title>
 <meta name="description" content="Step-by-step: point an omnexlab.site subdomain at your Vercel or GitHub Pages site, and fix common problems.">
 <meta name="theme-color" content="#4f46e5">
+<link rel="canonical" href="https://omnexlab.site/guides.html">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
 </head>
@@ -22,7 +23,7 @@
     <p class="meta">Point your subdomain at a site you already host.</p>
 
     <div class="callout"><strong>Golden rule:</strong> add the name to your host <em>first</em>, then request it. Until your host has the name, anyone else could claim it, so the bot refuses to create it.</div>
-    <div class="toc"><strong>On this page</strong><br><a href="#vercel">Vercel</a><a href="#github">GitHub Pages</a><a href="#others">Other hosts</a><a href="#trouble">Troubleshooting</a></div>
+    <div class="toc"><strong>On this page</strong><br><a href="#vercel">Vercel</a><a href="#github">GitHub Pages</a><a href="#others">Other hosts</a><a href="#modes">Traffic modes</a><a href="#trouble">Troubleshooting</a></div>
 
     <h2 id="vercel">Vercel</h2>
     <ol>
@@ -32,7 +33,7 @@
       <li>Press the button, then <strong>Submit new issue</strong> on GitHub.</li>
       <li>Within about a minute the bot replies "Done". Back in Vercel press <strong>Refresh</strong> on the domain.</li>
     </ol>
-    <div class="callout info"><strong>"Proxy Detected" warning in Vercel?</strong> Our names go through Cloudflare, which gives you instant HTTPS. Vercel recommends no proxy, so it shows a notice. Your site still works. If you want Vercel's own protection instead, tell us when you request, and we can look at it.</div>
+    <div class="callout info"><strong>"Proxy Detected" warning in Vercel?</strong> By default our names go through Cloudflare, which gives you instant HTTPS. Vercel recommends no proxy, so it shows a notice. Your site still works. To remove the notice, choose <strong>Direct to my host</strong> as the traffic mode when you request, or change it later on the <a href="/manage.html#change">manage page</a>.</div>
 
     <h2 id="github">GitHub Pages</h2>
     <ol>
@@ -44,6 +45,16 @@
 
     <h2 id="others">Other hosts</h2>
     <p>Netlify, Cloudflare Pages, GitLab Pages, Render, Fly.io and Firebase addresses are accepted. We cannot check them automatically, so add the name there <strong>immediately</strong> after requesting it. Until then someone else could claim it.</p>
+
+    <h2 id="modes">Traffic modes: which should I pick?</h2>
+    <table>
+      <thead><tr><th>Mode</th><th>HTTPS</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Through Cloudflare</strong> (default)</td><td>Instant</td><td>Visitors connect to Cloudflare, which decrypts HTTPS under our Cloudflare account and re-encrypts it to your host. Good for public sites. Vercel may show a "Proxy Detected" notice.</td></tr>
+        <tr><td><strong>Direct to my host</strong></td><td>From your host, can take a few minutes</td><td>DNS only. Visitors connect straight to your host, so HTTPS terminates there and Cloudflare never sees the traffic. Choose this for anything more sensitive than a public site.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout sec"><strong>Do not use a free shared subdomain for sensitive logins, private data or payments.</strong> Use your own domain for those, whichever mode you pick.</div>
 
     <h2 id="trouble">Troubleshooting</h2>
     <table>

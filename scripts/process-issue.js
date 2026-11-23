@@ -11,6 +11,7 @@ const FIELD_LABELS = {
   action: 'What do you want to do?',
   name: 'Subdomain name',
   target: 'Where your site lives',
+  mode: 'Traffic mode',
 };
 
 const safe = (s) => String(s).replace(/[@`<>]/g, '').slice(0, 400);
@@ -41,6 +42,15 @@ function actionOf(text) {
   if (t.includes('remove')) return 'remove';
   if (t.includes('change')) return 'update';
   return 'create';
+}
+
+// 'direct' = DNS only (HTTPS from the user's own host); 'proxy' = through Cloudflare; 'keep' = no change
+function modeOf(text) {
+  const t = String(text || '').toLowerCase();
+  if (t.includes('direct')) return 'direct';
+  if (t.includes('keep')) return 'keep';
+  if (t.includes('cloudflare')) return 'proxy';
+  return null;
 }
 
 const fail = (...problems) => ({
@@ -92,6 +102,9 @@ function decide({ fields, author, existing, ageDays }) {
     if (cur) return fail(`The name "${name}" is already taken. Please choose another.`);
     entry = { owner: { github: author }, record: { CNAME: target } };
   }
+  const mode = modeOf(fields.mode);
+  if (mode === 'direct') entry.proxied = false;
+  else if (mode === 'proxy') delete entry.proxied;
 
   const errors = checkEntry(name, entry);
   if (op === 'create') {
@@ -113,8 +126,12 @@ function decide({ fields, author, existing, ageDays }) {
       `| | |\n|---|---|\n` +
       `| **Address** | \`https://${host}\` |\n` +
       `| **Points to** | \`${target}\` |\n` +
+      `| **Traffic** | ${entry.proxied === false ? 'Direct to your host (HTTPS from your host)' : 'Through Cloudflare (instant HTTPS)'} |\n` +
       `| **Status** | Going live now, usually within a minute |\n\n` +
-      `**Next:** open your address in a minute. If it shows a certificate or 404 error, check the [guides](https://omnexlab.site/guides.html).\n\n` +
+      `**Next:** open your address in a minute. If it shows a certificate or 404 error, check the [guides](https://omnexlab.site/guides.html).` +
+      `${entry.proxied === false ? ' With Direct mode your host issues the certificate, which can take a few minutes.' : ''}\n\n` +
+      `> **Not for sensitive data.** Free shared subdomains are for portfolios, demos and side projects. Do not use them for logins, private data or payments. ` +
+      `Through Cloudflare, HTTPS is decrypted at Cloudflare before it reaches your host; choose Direct mode or use your own domain for anything sensitive.\n\n` +
       `Need to change or cancel it later? Use the [manage page](https://omnexlab.site/manage.html).`,
   };
 }
@@ -180,5 +197,5 @@ async function main() {
   console.log(res.ok ? `OK: ${res.op} ${res.name}` : 'Rejected');
 }
 
-module.exports = { parseIssue, decide, normalizeTarget, actionOf };
+module.exports = { parseIssue, decide, normalizeTarget, actionOf, modeOf };
 if (require.main === module) main();

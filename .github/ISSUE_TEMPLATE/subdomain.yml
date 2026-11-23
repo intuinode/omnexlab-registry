@@ -44,8 +44,21 @@ body:
       placeholder: myproject.vercel.app
     validations:
       required: false
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Traffic mode
+      description: Through Cloudflare gives instant HTTPS, but HTTPS is decrypted at Cloudflare before it reaches your host. Direct sends visitors straight to your host (your host issues the certificate).
+      options:
+        - Through Cloudflare (instant HTTPS, recommended for public sites)
+        - Direct to my host (DNS only, HTTPS from your host)
+      default: 0
+    validations:
+      required: true
   - type: markdown
     attributes:
       value: |
+        > **Not for sensitive data.** Free shared subdomains are for portfolios, demos and side projects. Do not use them for logins, private data or payments.
+
         ---
         By submitting you agree to the [Terms](https://omnexlab.site/terms.html) and [Privacy Policy](https://omnexlab.site/privacy.html). This issue and your GitHub username are **public**. We only provide DNS and are not responsible for your site.

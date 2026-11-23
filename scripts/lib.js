@@ -50,13 +50,9 @@ function checkEntry(name, entry, cfg = config) {
   const extra = Object.keys(entry).filter((k) => !['owner', 'record', 'description', 'proxied'].includes(k));
   if (extra.length) errors.push(`unknown field(s): ${extra.join(', ')}`);
 
-  // "proxied": false (DNS-only, e.g. Vercel's recommendation) is a maintainer-only option.
-  if (entry.proxied !== undefined) {
-    const isMaint = entry.owner && typeof entry.owner.github === 'string' &&
-      cfg.maintainers.map((m) => m.toLowerCase()).includes(entry.owner.github.toLowerCase());
-    if (typeof entry.proxied !== 'boolean') errors.push('proxied must be true or false');
-    else if (!isMaint) errors.push('only maintainers can set "proxied"');
-  }
+  // "proxied": false = "Direct" mode (DNS only): HTTPS then terminates at the owner's own host
+  // instead of at Cloudflare. Anyone may choose it; the default (omitted) is proxied.
+  if (entry.proxied !== undefined && typeof entry.proxied !== 'boolean') errors.push('proxied must be true or false');
 
   const gh = entry.owner && entry.owner.github;
   if (typeof gh !== 'string' || !GH_USER_RE.test(gh)) {

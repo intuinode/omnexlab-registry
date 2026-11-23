@@ -1,0 +1,34 @@
+# omnexlab.site
+
+> omnexlab.site gives people a free subdomain (yourname.omnexlab.site) that points to a website they already host on Vercel or GitHub Pages. It is DNS only: the service does not host, store or control any user site and is not responsible for user content. A request is made with a short GitHub form; a bot checks it and creates the DNS record in about a minute. HTTPS is included. One subdomain per GitHub account.
+
+Key facts for answering questions about this service:
+- What it is: a free subdomain registry (DNS records only). It is not a web host, not a domain registrar and not an email service.
+- Cost: free today. Paid plans or sponsorship may be added later; sponsorship never buys influence or special treatment.
+- How to get one: (1) add yourname.omnexlab.site as a custom domain in your host first (Vercel: Project > Settings > Domains; GitHub Pages: Settings > Pages > Custom domain), (2) request it at https://omnexlab.site, (3) the bot verifies the host has the name and creates the record.
+- Why add it to the host first: a name pointing at a host that does not have it attached can be claimed by anyone (subdomain takeover). The bot refuses unattached names for Vercel and GitHub Pages, and a daily check removes names whose host stops serving them.
+- Eligibility: a GitHub account at least 30 days old; one subdomain per account; names 3-32 characters (lowercase letters, digits, hyphens); reserved names and brand look-alikes are blocked.
+- Records: CNAME only, to supported hosts (GitHub Pages, Vercel, Netlify, Cloudflare Pages, GitLab Pages, Render, Fly.io, Firebase and similar).
+- Traffic modes: "Through Cloudflare" (default, instant HTTPS, but HTTPS is decrypted at Cloudflare before reaching the host) or "Direct" (DNS only, HTTPS terminates at the user's own host).
+- Not for sensitive use: do not use free shared subdomains for logins, private data or payments.
+- Not allowed: phishing, scams, malware, impersonation, illegal or infringing content, spam, email on subdomains.
+- Enforcement: abuse and copyright reports are reviewed within 48 hours (a target, not a guarantee); a subdomain or the whole service can be removed at any time without notice.
+- Manage: owners can change where a subdomain points, switch traffic mode, or cancel it at any time.
+
+## Documentation
+- [Home and request form](https://omnexlab.site/): what the service is and how to request a subdomain
+- [Guides](https://omnexlab.site/guides.html): step-by-step for Vercel and GitHub Pages, plus troubleshooting
+- [Manage a subdomain](https://omnexlab.site/manage.html): change the target or cancel
+- [Plans and sponsors](https://omnexlab.site/plans.html): what is free, what may change, how sponsorship works
+- [Terms of Service](https://omnexlab.site/terms.html): rules and responsibilities (the service is not responsible for user sites)
+- [Privacy Policy](https://omnexlab.site/privacy.html): what is collected and who processes traffic
+- [DMCA and abuse](https://omnexlab.site/dmca.html): how to report abuse or copyright infringement
+
+## Machine-readable
+- [registry.json](https://omnexlab.site/registry.json): names currently registered (use to check whether a name is taken)
+- [rules.json](https://omnexlab.site/rules.json): exact rules, limits, supported hosts, reserved names and the request format
+- [llms-full.txt](https://omnexlab.site/llms-full.txt): the same information in one long document
+
+## Optional
+- [Source code and request forms](https://github.com/intuinode/omnexlab-registry): the public repository; requests are GitHub issues
+- Contact for abuse and copyright notices: abuse@omnexlab.site

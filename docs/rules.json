@@ -1,0 +1,162 @@
+{
+  "description": "Rules for requesting a free subdomain of omnexlab.site. The server-side checks are the source of truth; these are published so tools can pre-check a request.",
+  "rootDomain": "omnexlab.site",
+  "record": {
+    "type": "CNAME",
+    "note": "Only a CNAME to a supported host is allowed."
+  },
+  "name": {
+    "minLength": 3,
+    "maxLength": 32,
+    "pattern": "^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$",
+    "notes": [
+      "lowercase letters, digits and hyphens",
+      "no two hyphens in a row",
+      "must not start or end with a hyphen"
+    ]
+  },
+  "reservedNames": [
+    "www",
+    "mail",
+    "email",
+    "smtp",
+    "imap",
+    "pop",
+    "pop3",
+    "ftp",
+    "ns",
+    "ns1",
+    "ns2",
+    "dns",
+    "admin",
+    "administrator",
+    "root",
+    "api",
+    "app",
+    "status",
+    "support",
+    "help",
+    "abuse",
+    "security",
+    "postmaster",
+    "webmaster",
+    "hostmaster",
+    "noreply",
+    "login",
+    "signin",
+    "signup",
+    "register",
+    "account",
+    "accounts",
+    "billing",
+    "pay",
+    "payment",
+    "payments",
+    "docs",
+    "blog",
+    "cdn",
+    "static",
+    "assets",
+    "git",
+    "github",
+    "autodiscover",
+    "autoconfig",
+    "registry",
+    "omnexlab",
+    "lab",
+    "labs"
+  ],
+  "blockedWords": [
+    "paypal",
+    "google",
+    "apple",
+    "icloud",
+    "microsoft",
+    "outlook",
+    "amazon",
+    "facebook",
+    "instagram",
+    "whatsapp",
+    "netflix",
+    "binance",
+    "coinbase",
+    "metamask",
+    "wellsfargo",
+    "bankofamerica",
+    "login",
+    "signin",
+    "secure",
+    "verify",
+    "official"
+  ],
+  "blockedWordsNote": "Names containing any of these words are refused to prevent impersonation.",
+  "supportedHosts": {
+    "suffixes": [
+      "github.io",
+      "gitlab.io",
+      "netlify.app",
+      "vercel.app",
+      "vercel-dns.com",
+      "pages.dev",
+      "workers.dev",
+      "onrender.com",
+      "fly.dev",
+      "surge.sh",
+      "web.app",
+      "firebaseapp.com",
+      "codeberg.page",
+      "readthedocs.io"
+    ],
+    "patterns": [
+      "^[a-z0-9]+\\.vercel-dns-[0-9]{3}\\.com$"
+    ],
+    "automaticallyVerified": [
+      "github.io",
+      "vercel.app",
+      "vercel-dns.com",
+      "vercel-dns-NNN.com"
+    ],
+    "note": "For verified hosts the name must already be attached to the project at the host before requesting; otherwise the request is refused. Other hosts are accepted but cannot be verified, so attach the name there immediately."
+  },
+  "limits": {
+    "subdomainsPerGitHubAccount": 1,
+    "minimumGitHubAccountAgeDays": 30
+  },
+  "trafficModes": [
+    {
+      "id": "cloudflare",
+      "default": true,
+      "description": "Through Cloudflare: instant HTTPS. HTTPS is decrypted at Cloudflare before reaching your host."
+    },
+    {
+      "id": "direct",
+      "default": false,
+      "description": "Direct to your host (DNS only): HTTPS terminates at your own host. Choose this for anything sensitive."
+    }
+  ],
+  "notAllowed": [
+    "phishing or scams",
+    "malware",
+    "impersonation",
+    "illegal or infringing content",
+    "email on subdomains"
+  ],
+  "notForSensitiveUse": "Do not use free shared subdomains for logins, private data or payments.",
+  "how": {
+    "checkAvailability": "https://omnexlab.site/registry.json",
+    "requestForm": "https://github.com/intuinode/omnexlab-registry/issues/new?template=subdomain.yml",
+    "changeForm": "https://github.com/intuinode/omnexlab-registry/issues/new?template=change.yml",
+    "cancelForm": "https://github.com/intuinode/omnexlab-registry/issues/new?template=cancel.yml",
+    "issueBodyFormat": "### What do you want to do?\n\nCreate a new subdomain\n\n### Subdomain name\n\n<name>\n\n### Where your site lives (address only)\n\n<host address, e.g. myproject.vercel.app>\n\n### Traffic mode\n\nThrough Cloudflare (instant HTTPS, recommended for public sites)",
+    "note": "The requester is the GitHub account that opens the issue. Add the name to your host first."
+  },
+  "documentation": {
+    "llms": "https://omnexlab.site/llms.txt",
+    "llmsFull": "https://omnexlab.site/llms-full.txt",
+    "guides": "https://omnexlab.site/guides.html",
+    "terms": "https://omnexlab.site/terms.html",
+    "privacy": "https://omnexlab.site/privacy.html",
+    "abuse": "https://omnexlab.site/dmca.html"
+  },
+  "contact": "abuse@omnexlab.site"
+}

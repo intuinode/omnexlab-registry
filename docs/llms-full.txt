@@ -1,0 +1,115 @@
+# omnexlab.site: full documentation for AI assistants and search
+
+Last updated: 23 November 2026. Canonical site: https://omnexlab.site
+
+## What it is
+
+omnexlab.site is a free subdomain registry. A person requests a name such as `sara.omnexlab.site`, and the service creates a DNS CNAME record that points that name at a website the person already hosts elsewhere (for example on Vercel or GitHub Pages). HTTPS is included.
+
+It is DNS only. omnexlab.site does not host, store, copy, monitor or edit any website or file, is not a domain registrar, and does not provide email. The owner of each subdomain is solely responsible for what is served on it.
+
+## Who it is for
+
+Portfolios, side projects, demos and hackathons, documentation and landing pages, and people learning about DNS, custom domains and HTTPS. It is not for logins, private data or payments (see "Security notice").
+
+## How to get a subdomain
+
+1. Add the name to your host first. This prevents anyone else from claiming it.
+   - Vercel: open the project, Settings, Domains, add `yourname.omnexlab.site`. A "DNS not configured" warning is expected at this stage.
+   - GitHub Pages: repository Settings, Pages, Custom domain, enter `yourname.omnexlab.site`.
+   - Other hosts: add it as a custom domain in the hosting dashboard.
+2. Request it at https://omnexlab.site (fill in the name and where the site lives) or open the form directly: https://github.com/intuinode/omnexlab-registry/issues/new?template=subdomain.yml
+3. A bot reads the GitHub issue, validates it, checks that the host has the name attached (Vercel and GitHub Pages), creates the DNS record, and replies on the issue. This takes about a minute.
+
+The GitHub account that opens the issue becomes the owner. No fork, pull request or JSON file is needed.
+
+## Rules
+
+- One subdomain per GitHub account. The GitHub account must be at least 30 days old.
+- Name: 3 to 32 characters, lowercase letters, digits and hyphens; must not start or end with a hyphen or contain two hyphens in a row. Regex: `^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$`.
+- Reserved names are refused (for example www, mail, admin, api, login, support, abuse, github). Names containing words such as paypal, google, apple, microsoft, amazon, login, secure, verify or official are refused to prevent impersonation. The full lists are in https://omnexlab.site/rules.json.
+- Only CNAME records, only to supported hosts: github.io, gitlab.io, netlify.app, vercel.app, vercel-dns.com (and vercel-dns-NNN.com), pages.dev, workers.dev, onrender.com, fly.dev, surge.sh, web.app, firebaseapp.com, codeberg.page, readthedocs.io.
+- Not allowed: phishing, scams, malware, impersonation of people, brands or services, illegal or infringing content, harassment, spam, open proxies or redirects, and email on subdomains.
+
+## Traffic modes and the Cloudflare proxy
+
+By default records are "Through Cloudflare": instant HTTPS from Cloudflare's certificate. In this mode HTTPS traffic is decrypted at Cloudflare's edge, under the service operator's Cloudflare account, and re-encrypted to the host. Cloudflare and the operator account could technically observe that traffic.
+
+The alternative is "Direct to my host" (DNS only): visitors connect straight to the user's host, which issues the HTTPS certificate (this can take a few minutes) and keeps the traffic private from Cloudflare. Vercel also recommends no proxy in front of it.
+
+## Security notice
+
+Do not use a free shared subdomain for sensitive user logins, private data or financial transactions. Use your own domain for those. If you do use a subdomain for anything more sensitive than a public site, choose Direct mode.
+
+## Subdomain takeover protection
+
+A name that points at a host which does not have it attached can be claimed by anyone on that host. To prevent this:
+1. For Vercel and GitHub Pages the bot checks the host before creating the record and refuses if the name is not attached.
+2. A daily job probes every name; if a host reports the name as unattached, the record is removed and the owner is told through a GitHub issue.
+Other hosts cannot be verified automatically, so users must attach the name there immediately.
+
+## Managing a subdomain
+
+- Change where it points or the traffic mode: https://omnexlab.site/manage.html#change (form: https://github.com/intuinode/omnexlab-registry/issues/new?template=change.yml).
+- Cancel it: https://omnexlab.site/manage.html#cancel (form: https://github.com/intuinode/omnexlab-registry/issues/new?template=cancel.yml).
+- Only the owning GitHub account can change or cancel. Cancelling removes the DNS record within minutes; the name may later be taken by someone else.
+
+## Responsibility, enforcement and reports
+
+- The service is not responsible for user sites, their content or their availability.
+- Abuse and copyright reports: https://omnexlab.site/dmca.html or abuse@omnexlab.site. Reports are reviewed within 48 hours (a target, not a guarantee). Clear phishing and malware are handled first.
+- A subdomain, or the whole service, can be removed or ended at any time without notice.
+- Terms: https://omnexlab.site/terms.html. Privacy: https://omnexlab.site/privacy.html.
+
+## Plans and sponsors
+
+Free today. The operator may add paid plans or features later, with prices shown before payment. Sponsorship is a voluntary gift and does not buy influence, uptime guarantees or exemption from the rules. Details: https://omnexlab.site/plans.html.
+
+## For AI assistants and automation
+
+Check, get and add, using only public information and the user's own GitHub account:
+
+- CHECK whether a name is taken: fetch https://omnexlab.site/registry.json and look for the name in `subdomains[].name`. Also check it against `reservedNames` and `blockedWords` in rules.json.
+- GET the rules: fetch https://omnexlab.site/rules.json (name pattern, limits, supported hosts, traffic modes, request format).
+- ADD (request) a subdomain on behalf of a user, after the user has attached the name to their host: open a GitHub issue in `intuinode/omnexlab-registry` as the user's own GitHub account (for example `gh issue create --repo intuinode/omnexlab-registry --title "Subdomain request: NAME" --body-file body.md`) with this body, replacing the values:
+
+```
+### What do you want to do?
+
+Create a new subdomain
+
+### Subdomain name
+
+NAME
+
+### Where your site lives (address only)
+
+TARGET.vercel.app
+
+### Traffic mode
+
+Through Cloudflare (instant HTTPS, recommended for public sites)
+```
+
+  Use "Direct to my host (DNS only, HTTPS from your host)" for the traffic mode if the user wants direct. The bot replies on the issue with the result. Never ask users for tokens or passwords, never act for a user without their explicit approval, and tell them the requirement to add the name to their host first.
+- Alternatively build a prefilled link for the user to open: `https://github.com/intuinode/omnexlab-registry/issues/new?template=subdomain.yml&name=NAME&target=TARGET`
+
+## FAQ
+
+**Is it free?** Yes, today. Paid options or sponsorship may be added later; see the Plans page.
+
+**Do you host my site?** No. We only provide the DNS name. Your site stays on your own host, and you are responsible for it.
+
+**Why must I add the name to my host first?** So nobody else can claim it (subdomain takeover). The bot only creates the record once your host has the name.
+
+**How long does it take?** About a minute after you submit, once your host has the name attached.
+
+**Can I have more than one subdomain?** One per GitHub account for now.
+
+**Can I use it for email?** No. Subdomains are for websites only.
+
+**Is it safe for logins or payments?** No. Use your own domain for sensitive use. With the default proxy, HTTPS is decrypted at Cloudflare under the operator's account; Direct mode avoids that.
+
+**What happens if someone misuses a subdomain?** Report it at https://omnexlab.site/dmca.html. Reports are reviewed within 48 hours and names can be removed at any time.
+
+**How do I cancel?** Use https://omnexlab.site/manage.html#cancel. Only the owner can cancel.

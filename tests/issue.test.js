@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { parseIssue, decide, normalizeTarget, actionOf } = require('../scripts/process-issue');
+const { parseIssue, decide, normalizeTarget, actionOf, modeOf } = require('../scripts/process-issue');
 
 const form = (action, name, target) =>
   `### What do you want to do?\r\n\r\n${action}\r\n\r\n### Subdomain name\r\n\r\n${name}\r\n\r\n### Where your site lives (address only)\r\n\r\n${target || '_No response_'}\r\n`;
@@ -40,6 +40,23 @@ test('rejects taken, reserved, impersonating, wrong-host and too-young requests'
   assert.equal(t('my-site', 'evil.example.com').ok, false);
   assert.equal(t('my-site', 'bob.github.io', { ageDays: 3 }).ok, false);
   assert.equal(t('my-site', '').ok, false);
+});
+
+test('traffic mode: direct is honoured, default stays proxied, change can keep or reset it', () => {
+  const withMode = (action, name, target, mode) =>
+    `${form(action, name, target)}\n### Traffic mode\n\n${mode}\n`;
+  const direct = decide({ ...base, fields: parseIssue(withMode('Create a new subdomain', 'bobs-site', 'bob.github.io', 'Direct to my host (DNS only, HTTPS from your host)')) });
+  assert.equal(direct.ok, true);
+  assert.equal(direct.entry.proxied, false);
+  const def = decide({ ...base, fields: parseIssue(withMode('Create a new subdomain', 'bobs-site', 'bob.github.io', 'Through Cloudflare (instant HTTPS, recommended for public sites)')) });
+  assert.equal('proxied' in def.entry, false);
+  assert.equal(modeOf('Keep the current setting'), 'keep');
+  // an existing direct entry stays direct on "keep", and returns to proxied on "Cloudflare"
+  const ex = [{ name: 'taken-one', entry: { owner: { github: 'alice' }, record: { CNAME: 'alice.github.io' }, proxied: false } }];
+  const keep = decide({ ...base, author: 'alice', existing: ex, fields: parseIssue(withMode('Change where my subdomain points', 'taken-one', 'new.github.io', 'Keep the current setting')) });
+  assert.equal(keep.entry.proxied, false);
+  const reset = decide({ ...base, author: 'alice', existing: ex, fields: parseIssue(withMode('Change where my subdomain points', 'taken-one', 'new.github.io', 'Through Cloudflare (instant HTTPS, recommended for public sites)')) });
+  assert.equal('proxied' in reset.entry, false);
 });
 
 test('only the owner can change or remove', () => {

@@ -37,6 +37,18 @@ body:
       placeholder: newproject.vercel.app
     validations:
       required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Traffic mode
+      description: Choose how visitors reach your host. Direct means HTTPS terminates at your own host instead of Cloudflare.
+      options:
+        - Keep the current setting
+        - Through Cloudflare (instant HTTPS, recommended for public sites)
+        - Direct to my host (DNS only, HTTPS from your host)
+      default: 0
+    validations:
+      required: true
   - type: markdown
     attributes:
       value: |

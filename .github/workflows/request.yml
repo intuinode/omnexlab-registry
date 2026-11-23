@@ -17,7 +17,9 @@ concurrency:
 
 jobs:
   handle:
-    if: contains(github.event.issue.labels.*.name, 'subdomain-request')
+    # Issues from the web forms carry the label; issues created through the API by a script or an AI
+    # assistant may not, so the form's own heading also counts. Everything is validated either way.
+    if: contains(github.event.issue.labels.*.name, 'subdomain-request') || contains(github.event.issue.body, '### Subdomain name')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
