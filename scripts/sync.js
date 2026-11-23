@@ -30,7 +30,7 @@ async function existingRecords() {
   const out = [];
   for (let page = 1; ; page++) {
     const j = await cf('GET', `/zones/${ZONE}/dns_records?type=CNAME&per_page=100&page=${page}`);
-    out.push(...j.result.filter((r) => r.comment === MARK));
+    out.push(...j.result);
     if (page >= (j.result_info.total_pages || 1)) break;
   }
   return out;
@@ -51,13 +51,16 @@ async function existingRecords() {
     });
   }
 
-  const existing = await existingRecords();
-  const have = new Map(existing.map((r) => [r.name, r]));
+  const all = await existingRecords();
+  // Records we own (and may delete) carry our comment. An unlabelled CNAME that sits on a name
+  // the registry wants (e.g. added by hand in the dashboard) is adopted and labelled, never deleted.
+  const existing = all.filter((r) => r.comment === MARK);
+  const have = new Map(all.filter((r) => r.comment === MARK || desired.has(r.name)).map((r) => [r.name, r]));
   const creates = [], updates = [], deletes = [];
   for (const [name, { content, proxied }] of desired) {
     const r = have.get(name);
     if (!r) creates.push({ name, content, proxied });
-    else if (r.content !== content || r.proxied !== proxied) updates.push({ id: r.id, name, content, proxied });
+    else if (r.content !== content || r.proxied !== proxied || r.comment !== MARK) updates.push({ id: r.id, name, content, proxied });
   }
   for (const r of existing) if (!desired.has(r.name)) deletes.push(r);
 
@@ -76,7 +79,7 @@ async function existingRecords() {
   // Cloudflare's wildcard certificate instead of waiting for each host to issue one.
   const base = { type: 'CNAME', ttl: 1, comment: MARK };
   for (const c of creates) await cf('POST', `/zones/${ZONE}/dns_records`, { ...base, name: c.name, content: c.content, proxied: c.proxied });
-  for (const u of updates) await cf('PATCH', `/zones/${ZONE}/dns_records/${u.id}`, { content: u.content, proxied: u.proxied });
+  for (const u of updates) await cf('PATCH', `/zones/${ZONE}/dns_records/${u.id}`, { content: u.content, proxied: u.proxied, comment: MARK });
   for (const d of deletes) await cf('DELETE', `/zones/${ZONE}/dns_records/${d.id}`);
   console.log('sync complete');
 })().catch((e) => { console.error(e.message); process.exit(1); });
