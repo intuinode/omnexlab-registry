@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Custom Subdomain for Vercel | omnexlab.site</title>
+<meta name="description" content="How to point a free yourname.omnexlab.site subdomain at your Vercel project: add the domain, request it, and fix Invalid Configuration warnings.">
+<meta name="theme-color" content="#4f46e5">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://omnexlab.site/guides/vercel-subdomain.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="omnexlab.site">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Free Custom Subdomain for Vercel | omnexlab.site">
+<meta property="og:description" content="How to point a free yourname.omnexlab.site subdomain at your Vercel project: add the domain, request it, and fix Invalid Configuration warnings.">
+<meta property="og:url" content="https://omnexlab.site/guides/vercel-subdomain.html">
+<meta property="og:image" content="https://omnexlab.site/og.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="omnexlab.site: free subdomains for your projects">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Custom Subdomain for Vercel | omnexlab.site">
+<meta name="twitter:description" content="How to point a free yourname.omnexlab.site subdomain at your Vercel project: add the domain, request it, and fix Invalid Configuration warnings.">
+<meta name="twitter:image" content="https://omnexlab.site/og.png">
+<meta name="twitter:image:alt" content="omnexlab.site: free subdomains for your projects">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HowTo",
+      "name": "How to use a free omnexlab.site subdomain with Vercel",
+      "description": "Point a free yourname.omnexlab.site subdomain at a Vercel project.",
+      "totalTime": "PT5M",
+      "tool": [{ "@type": "HowToTool", "name": "A Vercel project" }, { "@type": "HowToTool", "name": "A GitHub account at least 30 days old" }],
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Add the domain in Vercel", "text": "Open your project in Vercel, go to Settings, then Domains, and add yourname.omnexlab.site. A DNS not configured or Invalid Configuration warning is expected at this stage." },
+        { "@type": "HowToStep", "position": 2, "name": "Find your Vercel address", "text": "Use your project address, for example myproject.vercel.app, or the CNAME target that Vercel shows for the domain." },
+        { "@type": "HowToStep", "position": 3, "name": "Request the subdomain", "text": "On omnexlab.site enter the name and your Vercel address, press the button and submit the request form on GitHub." },
+        { "@type": "HowToStep", "position": 4, "name": "Refresh in Vercel", "text": "When the bot replies Done, return to Vercel and press Refresh on the domain. It should turn valid within a few minutes." }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://omnexlab.site/" },
+        { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://omnexlab.site/guides.html" },
+        { "@type": "ListItem", "position": 3, "name": "Vercel", "item": "https://omnexlab.site/guides/vercel-subdomain.html" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#g)"/><circle cx="16" cy="16" r="6" fill="none" stroke="#fff" stroke-width="3"/></svg>omnexlab</a>
+    <nav aria-label="Main"><a href="/">Home</a><a href="/guides.html" aria-current="page">Guides</a><a href="/manage.html">Manage</a><a href="/plans.html">Plans</a><a class="ext" href="https://github.com/intuinode/omnexlab-registry">GitHub</a></nav>
+  </header>
+
+  <main id="main" class="page prose">
+    <p class="meta"><a href="/guides.html">Guides</a> &rsaquo; Vercel</p>
+    <h1>Use a free subdomain with Vercel</h1>
+    <p class="meta">About 5 minutes &middot; works with any Vercel project</p>
+
+    <p>This guide shows how to give a Vercel project a free <code>yourname.omnexlab.site</code> address, with HTTPS included. omnexlab.site only provides the DNS name; your site keeps running on Vercel.</p>
+
+    <div class="callout"><strong>Do the Vercel step first.</strong> Add the name to your Vercel project <em>before</em> you request it. Until Vercel has the name, anyone else could claim it, so the request is refused.</div>
+
+    <h2>What you need</h2>
+    <ul>
+      <li>A project deployed on Vercel.</li>
+      <li>A GitHub account at least 30 days old (one subdomain per account).</li>
+      <li>A name that is free and allowed: 3-32 letters, digits or hyphens. See the <a href="/#faq">rules</a>.</li>
+    </ul>
+
+    <h2>Step by step</h2>
+    <ol>
+      <li><strong>Add the domain in Vercel.</strong> Open your project, then <strong>Settings &rarr; Domains</strong>, and add <code>yourname.omnexlab.site</code>. Vercel will say the DNS is not configured or shows <em>Invalid Configuration</em>. That is expected for now.</li>
+      <li><strong>Note your Vercel address.</strong> Use your project address, for example <code>myproject.vercel.app</code>. If Vercel shows a CNAME value such as <code>&lt;hash&gt;.vercel-dns-017.com</code>, that works too.</li>
+      <li><strong>Request the subdomain.</strong> On the <a href="/#get">home page</a>, enter your name and your Vercel address, then press the button. GitHub opens a prefilled form; press <em>Submit new issue</em>.</li>
+      <li><strong>Wait for the bot.</strong> It checks that Vercel has the name, creates the DNS record and replies <em>All set</em>, usually within a minute.</li>
+      <li><strong>Refresh in Vercel.</strong> Back in <strong>Settings &rarr; Domains</strong>, press <strong>Refresh</strong>. The domain should turn valid within a few minutes.</li>
+    </ol>
+
+    <h2>Cloudflare proxy or direct?</h2>
+    <p>By default your name goes through Cloudflare, which gives instant HTTPS. Vercel then shows a <em>Proxy Detected</em> notice, because it recommends no proxy in front of it. Your site still works. If you prefer to avoid the notice, or want HTTPS to end at Vercel itself, choose <strong>Direct to my host</strong> as the traffic mode, now or later on the <a href="/manage.html#change">manage page</a>.</p>
+    <div class="callout sec"><strong>Not for sensitive data.</strong> Do not use a free shared subdomain for logins, private data or payments. Use your own domain for those.</div>
+
+    <h2>Troubleshooting</h2>
+    <ul>
+      <li><strong>"Your host does not have the name attached"</strong>: add <code>yourname.omnexlab.site</code> in Vercel (step 1), then submit the form again.</li>
+      <li><strong>Vercel still says Invalid Configuration</strong> after the bot says Done: wait a few minutes and press Refresh. In Cloudflare mode Vercel may keep showing the proxy notice; that is harmless.</li>
+      <li><strong>Certificate warning in the browser</strong>: wait a few minutes. With Direct mode, Vercel issues the certificate after the DNS record exists.</li>
+      <li><strong>Name taken or blocked</strong>: some names are reserved or look like big brands. See the full <a href="/rules.json">rules</a>.</li>
+    </ul>
+
+    <h2>Questions</h2>
+    <details><summary>Is it really free?</summary><p>Yes, today. See <a href="/plans.html">Plans &amp; sponsors</a> for what may change.</p></details>
+    <details><summary>Can I move it to another Vercel project later?</summary><p>Yes. Add the name to the new project first, then use the <a href="/manage.html#change">manage page</a> if the target address changes.</p></details>
+    <details><summary>How do I remove it?</summary><p>Use the <a href="/manage.html#cancel">cancel form</a>. Only the owner can cancel, and the record disappears within minutes.</p></details>
+
+    <p style="margin-top:28px"><a class="btn inline" href="/#get">Request your subdomain</a> &nbsp; <a href="/guides/github-pages-subdomain.html">Using GitHub Pages instead?</a></p>
+  </main>
+
+  <footer>
+    <span>&copy; omnexlab.site &middot; DNS only, we do not host your site.</span>
+    <span class="links"><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/dmca.html">DMCA &amp; abuse</a><a href="/plans.html">Plans &amp; sponsors</a><a href="https://github.com/intuinode/omnexlab-registry">GitHub</a></span>
+  </footer>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

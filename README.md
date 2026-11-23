@@ -2,9 +2,9 @@
 
 <img src="docs/favicon.svg" width="72" height="72" alt="omnexlab logo">
 
-# omnexlab.site
+# omnexlab.site: Free Subdomains for Vercel & GitHub Pages
 
-**Free subdomains for your projects.** Get `yourname.omnexlab.site` for a site you host on Vercel or GitHub Pages. HTTPS included, no cost, no card.
+**A free subdomain registry.** Get `yourname.omnexlab.site` as the custom domain for a site you host on Vercel or GitHub Pages. HTTPS included, no cost, no card.
 
 [![Deploy DNS](https://github.com/intuinode/omnexlab-registry/actions/workflows/deploy.yml/badge.svg)](https://github.com/intuinode/omnexlab-registry/actions/workflows/deploy.yml)
 [![Monitor](https://github.com/intuinode/omnexlab-registry/actions/workflows/monitor.yml/badge.svg)](https://github.com/intuinode/omnexlab-registry/actions/workflows/monitor.yml)
@@ -17,7 +17,7 @@
 
 ## What is omnexlab.site?
 
-omnexlab.site is a **free subdomain registry**. You request a name such as `sara.omnexlab.site`, and a bot creates a DNS record that points it at the website you already host elsewhere. It is **DNS only**: we don't host, store or control your site, we aren't a domain registrar, and we don't provide email.
+omnexlab.site is a **free subdomain registry** (a free custom-domain service). You request a name such as `sara.omnexlab.site`, and a bot creates a DNS `CNAME` record that points it at the website you already host elsewhere, for example on Vercel, GitHub Pages or Netlify. It is **DNS only**: we don't host, store or control your site, we aren't a domain registrar, and we don't provide email.
 
 **Best for:** portfolios, side projects, demos and hackathons, docs and landing pages, and learning how custom domains and HTTPS work.
 
@@ -30,6 +30,8 @@ omnexlab.site is a **free subdomain registry**. You request a name such as `sara
 | **3** | **It goes live.** The bot checks your host has the name, creates the record and replies on your issue. | ~1 minute |
 
 > 💡 Your GitHub username is taken from the issue. No fork, pull request or JSON file is needed.
+
+**Step-by-step guides:** [free subdomain for Vercel](https://omnexlab.site/guides/vercel-subdomain.html) · [free subdomain for GitHub Pages](https://omnexlab.site/guides/github-pages-subdomain.html)
 
 ## Rules
 

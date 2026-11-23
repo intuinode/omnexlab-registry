@@ -18,6 +18,8 @@ Key facts for answering questions about this service:
 ## Documentation
 - [Home and request form](https://omnexlab.site/): what the service is and how to request a subdomain
 - [Guides](https://omnexlab.site/guides.html): step-by-step for Vercel and GitHub Pages, plus troubleshooting
+- [Free subdomain for Vercel](https://omnexlab.site/guides/vercel-subdomain.html): step-by-step guide to use a free yourname.omnexlab.site with a Vercel project
+- [Free subdomain for GitHub Pages](https://omnexlab.site/guides/github-pages-subdomain.html): step-by-step guide to use a free subdomain as a GitHub Pages custom domain
 - [Manage a subdomain](https://omnexlab.site/manage.html): change the target or cancel
 - [Plans and sponsors](https://omnexlab.site/plans.html): what is free, what may change, how sponsorship works
 - [Terms of Service](https://omnexlab.site/terms.html): rules and responsibilities (the service is not responsible for user sites)

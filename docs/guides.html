@@ -3,12 +3,48 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Guides - omnexlab.site</title>
-<meta name="description" content="Step-by-step: point an omnexlab.site subdomain at your Vercel or GitHub Pages site, and fix common problems.">
+<title>Vercel &amp; GitHub Pages Subdomain Guides | omnexlab.site</title>
+<meta name="description" content="Step-by-step guides to point a free omnexlab.site subdomain at your Vercel or GitHub Pages site, plus fixes for common DNS and HTTPS problems.">
 <meta name="theme-color" content="#4f46e5">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://omnexlab.site/guides.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="omnexlab.site">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Vercel &amp; GitHub Pages Subdomain Guides | omnexlab.site">
+<meta property="og:description" content="Step-by-step guides to point a free omnexlab.site subdomain at your Vercel or GitHub Pages site, plus fixes for common DNS and HTTPS problems.">
+<meta property="og:url" content="https://omnexlab.site/guides.html">
+<meta property="og:image" content="https://omnexlab.site/og.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="omnexlab.site: free subdomains for your projects">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vercel &amp; GitHub Pages Subdomain Guides | omnexlab.site">
+<meta name="twitter:description" content="Step-by-step guides to point a free omnexlab.site subdomain at your Vercel or GitHub Pages site, plus fixes for common DNS and HTTPS problems.">
+<meta name="twitter:image" content="https://omnexlab.site/og.png">
+<meta name="twitter:image:alt" content="omnexlab.site: free subdomains for your projects">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://omnexlab.site/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://omnexlab.site/guides.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -23,6 +59,10 @@
     <p class="meta">Point your subdomain at a site you already host.</p>
 
     <div class="callout"><strong>Golden rule:</strong> add the name to your host <em>first</em>, then request it. Until your host has the name, anyone else could claim it, so the bot refuses to create it.</div>
+    <div class="grid" style="margin:18px 0">
+      <a class="tile" href="/guides/vercel-subdomain.html" style="text-decoration:none;color:inherit"><span class="ico">&#9650;</span><h3>Vercel guide</h3><p>Add the domain, request it, fix "Invalid Configuration". Full step-by-step.</p></a>
+      <a class="tile" href="/guides/github-pages-subdomain.html" style="text-decoration:none;color:inherit"><span class="ico">&#128025;</span><h3>GitHub Pages guide</h3><p>Use a free subdomain as your Pages custom domain, with HTTPS.</p></a>
+    </div>
     <div class="toc"><strong>On this page</strong><br><a href="#vercel">Vercel</a><a href="#github">GitHub Pages</a><a href="#others">Other hosts</a><a href="#modes">Traffic modes</a><a href="#trouble">Troubleshooting</a></div>
 
     <h2 id="vercel">Vercel</h2>
