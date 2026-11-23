@@ -1,0 +1,13 @@
+{
+  "name": "omnexlab-registry",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free subdomain registry for omnexlab.site",
+  "scripts": {
+    "test": "node --test",
+    "validate": "node scripts/validate.js --all",
+    "plan": "node scripts/sync.js --dry-run"
+  },
+  "engines": { "node": ">=20" },
+  "license": "MIT"
+}

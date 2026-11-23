@@ -1,0 +1,38 @@
+name: Validate
+
+on:
+  pull_request:
+    branches: [main]
+
+# Runs on untrusted pull requests: read-only, no secrets.
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run unit tests
+        run: node --test
+      - name: Validate pull request
+        env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/validate.js --pr
+      - name: Save PR number for the merge workflow
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          mkdir pr
+          echo "$PR_NUMBER" > pr/number
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr
+          path: pr/
