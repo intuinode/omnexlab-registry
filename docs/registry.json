@@ -1,24 +1,12 @@
 {
   "description": "Subdomains currently registered under omnexlab.site. A name not listed here and not reserved (see rules.json) may be available.",
   "rootDomain": "omnexlab.site",
-  "count": 4,
+  "count": 2,
   "subdomains": [
     {
       "name": "aisalesagent",
       "host": "aisalesagent.omnexlab.site",
       "target": "6499cda284159879.vercel-dns-017.com",
-      "trafficMode": "cloudflare"
-    },
-    {
-      "name": "bridge",
-      "host": "bridge.omnexlab.site",
-      "target": "bridge-app-coral-zeta.vercel.app",
-      "trafficMode": "cloudflare"
-    },
-    {
-      "name": "cancel-test",
-      "host": "cancel-test.omnexlab.site",
-      "target": "intuinode.github.io",
       "trafficMode": "cloudflare"
     },
     {
