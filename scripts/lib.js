@@ -33,7 +33,9 @@ function checkTarget(target, cfg = config) {
   if (target === root || target.endsWith('.' + root)) {
     errors.push('CNAME target must not point back to this domain');
   }
-  const allowed = cfg.allowedTargetSuffixes.some((s) => target === s || target.endsWith('.' + s));
+  const allowed =
+    cfg.allowedTargetSuffixes.some((s) => target === s || target.endsWith('.' + s)) ||
+    (cfg.allowedTargetPatterns || []).some((p) => new RegExp(p).test(target));
   if (!allowed) {
     errors.push(`CNAME target "${target}" is not on an allowed host (${cfg.allowedTargetSuffixes.join(', ')})`);
   }
@@ -45,8 +47,16 @@ function checkEntry(name, entry, cfg = config) {
   if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
     return [...errors, 'file must contain a JSON object'];
   }
-  const extra = Object.keys(entry).filter((k) => !['owner', 'record', 'description'].includes(k));
+  const extra = Object.keys(entry).filter((k) => !['owner', 'record', 'description', 'proxied'].includes(k));
   if (extra.length) errors.push(`unknown field(s): ${extra.join(', ')}`);
+
+  // "proxied": false (DNS-only, e.g. Vercel's recommendation) is a maintainer-only option.
+  if (entry.proxied !== undefined) {
+    const isMaint = entry.owner && typeof entry.owner.github === 'string' &&
+      cfg.maintainers.map((m) => m.toLowerCase()).includes(entry.owner.github.toLowerCase());
+    if (typeof entry.proxied !== 'boolean') errors.push('proxied must be true or false');
+    else if (!isMaint) errors.push('only maintainers can set "proxied"');
+  }
 
   const gh = entry.owner && entry.owner.github;
   if (typeof gh !== 'string' || !GH_USER_RE.test(gh)) {

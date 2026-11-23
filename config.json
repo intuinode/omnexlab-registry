@@ -20,6 +20,9 @@
     "codeberg.page",
     "readthedocs.io"
   ],
+  "allowedTargetPatterns": [
+    "^[a-z0-9]+\\.vercel-dns-[0-9]{3}\\.com$"
+  ],
   "reserved": [
     "www", "mail", "email", "smtp", "imap", "pop", "pop3", "ftp", "ns", "ns1", "ns2",
     "dns", "admin", "administrator", "root", "api", "app", "status", "support", "help",

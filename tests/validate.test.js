@@ -30,6 +30,20 @@ test('only allows known hosts for CNAME targets', () => {
   assert.ok(checkTarget('Octocat.github.io').length > 0);
 });
 
+test('accepts Vercel project CNAME targets but not look-alikes', () => {
+  assert.deepEqual(checkTarget('6499cda284159879.vercel-dns-017.com'), []);
+  assert.deepEqual(checkTarget('cname.vercel-dns.com'), []);
+  assert.ok(checkTarget('evil.vercel-dns-017.com.attacker.net').length > 0);
+  assert.ok(checkTarget('abc.vercel-dns-17.com').length > 0);
+});
+
+test('only maintainers may set proxied', () => {
+  assert.ok(checkEntry('my-app', { ...good, proxied: false }).length > 0);
+  const m = { owner: { github: 'intuinode' }, record: good.record };
+  assert.deepEqual(checkEntry('my-app', { ...m, proxied: false }), []);
+  assert.ok(checkEntry('my-app', { ...m, proxied: 'no' }).length > 0);
+});
+
 test('rejects wrong record types and extra fields', () => {
   assert.ok(checkEntry('my-app', { ...good, record: { A: '1.2.3.4' } }).length > 0);
   assert.ok(checkEntry('my-app', { ...good, record: { CNAME: 'a.github.io', TXT: 'x' } }).length > 0);

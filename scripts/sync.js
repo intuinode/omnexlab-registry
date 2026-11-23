@@ -45,22 +45,25 @@ async function existingRecords() {
       continue;
     }
     if (blocked.includes(d.entry.owner.github.toLowerCase())) continue;
-    desired.set(`${d.name}.${config.rootDomain}`, d.entry.record.CNAME);
+    desired.set(`${d.name}.${config.rootDomain}`, {
+      content: d.entry.record.CNAME,
+      proxied: d.entry.proxied !== false, // default on: instant HTTPS from Cloudflare's certificate
+    });
   }
 
   const existing = await existingRecords();
   const have = new Map(existing.map((r) => [r.name, r]));
   const creates = [], updates = [], deletes = [];
-  for (const [name, content] of desired) {
+  for (const [name, { content, proxied }] of desired) {
     const r = have.get(name);
-    if (!r) creates.push({ name, content });
-    else if (r.content !== content || r.proxied !== true) updates.push({ id: r.id, name, content });
+    if (!r) creates.push({ name, content, proxied });
+    else if (r.content !== content || r.proxied !== proxied) updates.push({ id: r.id, name, content, proxied });
   }
   for (const r of existing) if (!desired.has(r.name)) deletes.push(r);
 
   console.log(`plan: ${creates.length} create, ${updates.length} update, ${deletes.length} delete`);
-  creates.forEach((c) => console.log(`create ${c.name} -> ${c.content}`));
-  updates.forEach((u) => console.log(`update ${u.name} -> ${u.content}`));
+  creates.forEach((c) => console.log(`create ${c.name} -> ${c.content} (proxied=${c.proxied})`));
+  updates.forEach((u) => console.log(`update ${u.name} -> ${u.content} (proxied=${u.proxied})`));
   deletes.forEach((d) => console.log(`delete ${d.name}`));
 
   // Safety brake: never mass-delete because of a bug.
@@ -69,11 +72,11 @@ async function existingRecords() {
   }
   if (DRY) return console.log('dry run: nothing changed');
 
-  // proxied: true = traffic goes through Cloudflare, so visitors get HTTPS instantly from
+  // proxied (default true): traffic goes through Cloudflare, so visitors get HTTPS instantly from
   // Cloudflare's wildcard certificate instead of waiting for each host to issue one.
-  const base = { type: 'CNAME', ttl: 1, proxied: true, comment: MARK };
-  for (const c of creates) await cf('POST', `/zones/${ZONE}/dns_records`, { ...base, name: c.name, content: c.content });
-  for (const u of updates) await cf('PATCH', `/zones/${ZONE}/dns_records/${u.id}`, { content: u.content, proxied: true });
+  const base = { type: 'CNAME', ttl: 1, comment: MARK };
+  for (const c of creates) await cf('POST', `/zones/${ZONE}/dns_records`, { ...base, name: c.name, content: c.content, proxied: c.proxied });
+  for (const u of updates) await cf('PATCH', `/zones/${ZONE}/dns_records/${u.id}`, { content: u.content, proxied: u.proxied });
   for (const d of deletes) await cf('DELETE', `/zones/${ZONE}/dns_records/${d.id}`);
   console.log('sync complete');
 })().catch((e) => { console.error(e.message); process.exit(1); });

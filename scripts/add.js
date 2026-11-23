@@ -11,7 +11,7 @@ if (!name || !target) {
   console.log('Usage: node scripts/add.js <name> <target-host> [github-username]');
   process.exit(1);
 }
-const entry = { owner: { github: owner }, record: { CNAME: target.toLowerCase() } };
+const entry = { owner: { github: owner }, record: { CNAME: target.toLowerCase().replace(/\.$/, '') } };
 const errors = checkEntry(name, entry);
 if (errors.length) {
   errors.forEach((e) => console.error('x ' + e));

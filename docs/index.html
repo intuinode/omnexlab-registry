@@ -79,7 +79,7 @@
   var $ = function (id) { return document.getElementById(id); };
 
   function problem() {
-    var n = $('name').value.trim().toLowerCase(), g = $('gh').value.trim(), t = $('target').value.trim().toLowerCase();
+    var n = $('name').value.trim().toLowerCase(), g = $('gh').value.trim(), t = $('target').value.trim().toLowerCase().replace(/\.$/, '');
     if (!n && !g && !t) return '';
     if (n) {
       if (!/^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$/.test(n) || n.indexOf('--') > -1) return 'Name: 3-32 letters, digits or hyphens, not starting or ending with a hyphen.';
@@ -89,14 +89,15 @@
     if (g && !/^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){0,38}$/i.test(g)) return 'That does not look like a GitHub username.';
     if (t) {
       if (!/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/.test(t)) return 'Where your site lives: enter just the address, like myproject.vercel.app (no https://).';
-      var ok = ALLOWED.some(function (s) { return t === s || t.slice(-(s.length + 1)) === '.' + s; });
+      var ok = ALLOWED.some(function (s) { return t === s || t.slice(-(s.length + 1)) === '.' + s; }) ||
+               /^[a-z0-9]+\.vercel-dns-[0-9]{3}\.com$/.test(t);
       if (!ok) return 'Supported hosts: ' + ALLOWED.join(', ') + '.';
     }
     return '';
   }
 
   function update() {
-    var n = $('name').value.trim().toLowerCase(), g = $('gh').value.trim(), t = $('target').value.trim().toLowerCase();
+    var n = $('name').value.trim().toLowerCase(), g = $('gh').value.trim(), t = $('target').value.trim().toLowerCase().replace(/\.$/, '');
     var p = problem();
     $('err').textContent = p;
     var go = $('go');
