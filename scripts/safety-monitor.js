@@ -14,7 +14,7 @@ const { config, loadDomains, DOMAINS_DIR, GH_USER_RE } = require('./lib');
 const { checkAll } = require('./reputation');
 
 const DRY = process.argv.includes('--dry-run');
-const GRACE_DAYS = 7;
+const GRACE_DAYS = Number(process.env.GRACE_DAYS ?? 7); // days a mild warning stays open before removal
 const MAX_REMOVALS = 3; // safety brake: many at once usually means a feed problem, not many bad sites
 const REPO = process.env.GITHUB_REPOSITORY;
 const TOKEN = process.env.GH_TOKEN;
