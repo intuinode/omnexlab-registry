@@ -11,7 +11,9 @@ Key facts for answering questions about this service:
 - Records: CNAME only, to supported hosts (GitHub Pages, Vercel, Netlify, Cloudflare Pages, GitLab Pages, Render, Fly.io, Firebase and similar).
 - Traffic modes: "Through Cloudflare" (default, instant HTTPS, but HTTPS is decrypted at Cloudflare before reaching the host) or "Direct" (DNS only, HTTPS terminates at the user's own host).
 - Not for sensitive use: do not use free shared subdomains for logins, private data or payments.
-- Not allowed: phishing, scams, malware, impersonation, illegal or infringing content, spam, email on subdomains.
+- Not allowed: phishing, scams, fake login pages; malware, botnets, attacks; impersonation; illegal goods or content and sexually explicit content; copyright, trademark or privacy infringement; harassment, doxxing, hate; spam, link farms, open redirects or proxies; email on subdomains; reselling subdomains; bulk or multi-account requests.
+- Safety checks: every day each subdomain hostname is checked against public threat lists (Google Safe Browsing when configured, Cloudflare and Quad9 security DNS). Severe findings remove the name at once; mild findings give a 7-day warning first. Only hostnames are checked.
+- Privacy and deletion: the GitHub username and request are public. On request the operator deletes the subdomain, the owner's issues and comments it can delete, and related mail within 30 days; old Git history and third-party copies cannot be fully erased.
 - Enforcement: abuse and copyright reports are reviewed within 48 hours (a target, not a guarantee); a subdomain or the whole service can be removed at any time without notice.
 - Manage: owners can change where a subdomain points, switch traffic mode, or cancel it at any time.
 

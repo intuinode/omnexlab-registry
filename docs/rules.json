@@ -135,12 +135,30 @@
     }
   ],
   "notAllowed": [
-    "phishing or scams",
-    "malware",
-    "impersonation",
-    "illegal or infringing content",
-    "email on subdomains"
+    "phishing, scams, fake login or payment pages, crypto drainers",
+    "malware, ransomware, botnets or command-and-control servers, and attacking or scanning other systems",
+    "impersonating people, brands, public bodies or other services",
+    "illegal content, goods or services (drugs, weapons, stolen data, counterfeits, illegal gambling)",
+    "child sexual abuse material, sexual exploitation, and sexually explicit adult content",
+    "copyright, trademark or privacy infringement",
+    "harassment, doxxing, threats, incitement to violence or hatred",
+    "spam, link farms, scraped or doorway content, fake reviews, SEO manipulation",
+    "open proxies, open redirects, URL shorteners",
+    "email on subdomains",
+    "reselling, renting, transferring or handing out subdomains of your subdomain",
+    "bulk, automated or multi-account requests"
   ],
+  "safetyChecks": {
+    "frequency": "daily",
+    "sources": [
+      "Google Safe Browsing (when configured)",
+      "Cloudflare security DNS",
+      "Quad9"
+    ],
+    "severe": "DNS record removed at once, owner told on GitHub",
+    "mild": "warning with a 7-day grace period, then removal if still flagged",
+    "dataSent": "hostnames only"
+  },
   "notForSensitiveUse": "Do not use free shared subdomains for logins, private data or payments.",
   "how": {
     "checkAvailability": "https://omnexlab.site/registry.json",

@@ -38,7 +38,7 @@ omnexlab.site is a **free subdomain registry** (a free custom-domain service). Y
 - One subdomain per GitHub account; the account must be at least 30 days old.
 - Names are 3-32 characters: lowercase letters, digits and hyphens. Reserved names and look-alikes of big brands (e.g. containing `paypal`, `google`, `login`, `secure`) are blocked.
 - Only `CNAME` records, only to supported hosts (below).
-- **Not allowed:** phishing, scams, malware, impersonation, illegal or infringing content, spam, or email on subdomains.
+- **Not allowed:** phishing, scams or fake login pages; malware, botnets or attacks on other systems; impersonation; illegal goods or content and sexually explicit content; copyright, trademark or privacy infringement; harassment, doxxing or hate; spam, link farms, open redirects or proxies; email on subdomains; reselling or handing out your subdomain; bulk or multi-account requests. Full list in the [Terms](https://omnexlab.site/terms.html#use).
 - **We only provide DNS. We are not responsible for user sites.** We can remove any subdomain, or end the service, at any time and without notice.
 
 ## Supported hosts
@@ -66,6 +66,15 @@ A name that points at a host which doesn't have it attached can be claimed by an
 
 1. For Vercel and GitHub Pages the bot **checks the host before creating the record** and refuses if the name isn't attached.
 2. A **daily job** probes every name and removes those whose host stopped serving them, then opens an issue to tell the owner.
+
+## 🧯 Automated safety checks
+
+Every day each subdomain's hostname is looked up on public threat lists (Google Safe Browsing where configured, plus the malware and phishing filters of Cloudflare's and Quad9's public DNS). Only hostnames are sent, never content.
+
+- **Severe** (phishing or malware reported by Google, or blocked by two independent filters): the record is removed at once and the owner is told on GitHub.
+- **Mild** (unwanted software, or a single filter): the owner gets a warning and 7 days to fix it; if it is still flagged the name is removed, and if it is clean again the warning is closed.
+
+If you think a flag is wrong, email abuse@omnexlab.site.
 
 ## 🔁 Change or cancel
 

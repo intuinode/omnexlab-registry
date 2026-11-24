@@ -29,7 +29,18 @@ The GitHub account that opens the issue becomes the owner. No fork, pull request
 - Name: 3 to 32 characters, lowercase letters, digits and hyphens; must not start or end with a hyphen or contain two hyphens in a row. Regex: `^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$`.
 - Reserved names are refused (for example www, mail, admin, api, login, support, abuse, github). Names containing words such as paypal, google, apple, microsoft, amazon, login, secure, verify or official are refused to prevent impersonation. The full lists are in https://omnexlab.site/rules.json.
 - Only CNAME records, only to supported hosts: github.io, gitlab.io, netlify.app, vercel.app, vercel-dns.com (and vercel-dns-NNN.com), pages.dev, workers.dev, onrender.com, fly.dev, surge.sh, web.app, firebaseapp.com, codeberg.page, readthedocs.io.
-- Not allowed: phishing, scams, malware, impersonation of people, brands or services, illegal or infringing content, harassment, spam, open proxies or redirects, and email on subdomains.
+- Not allowed: phishing, scams and fake login or payment pages; malware, botnets, command-and-control and attacks on other systems; impersonation of people, brands, public bodies or services; illegal goods, services or content (drugs, weapons, stolen data, counterfeits, illegal gambling); child sexual abuse material, sexual exploitation and sexually explicit adult content; copyright, trademark or privacy infringement; harassment, doxxing, threats, incitement to violence or hatred; spam, link farms, scraped or doorway content, fake reviews; open proxies, open redirects and URL shorteners; email on subdomains; reselling, renting, transferring or handing out subdomains; bulk, automated or multi-account requests.
+
+## Automated safety checks
+
+Every day each subdomain's hostname is checked against public threat lists: Google Safe Browsing (when an API key is configured) and the malware and phishing filters of Cloudflare's and Quad9's public DNS. Only hostnames are sent, never content.
+- Severe (phishing or malware reported by Google, or blocked by two independent filters): the DNS record is removed at once and the owner is told on GitHub.
+- Mild (unwanted software, or a single filter): a warning with a 7-day grace period; if still flagged the name is removed; if clean again the warning is closed.
+These checks are best effort and can be wrong; an owner can ask a person to review by emailing abuse@omnexlab.site.
+
+## Privacy, deletion and operator
+
+The operator is an individual who maintains github.com/intuinode; their name and postal address are not published and are disclosed only where the law requires. A user's GitHub username and request issue are public. On a verified request the operator, within 30 days and usually within days, removes the subdomain and its record, deletes the user's issues and comments that can be deleted, and deletes related mail unless a legal reason requires keeping it. Older Git history and third-party copies (forks, archives) cannot be fully erased. The documents are general information, not legal advice: https://omnexlab.site/terms.html, https://omnexlab.site/privacy.html.
 
 ## Traffic modes and the Cloudflare proxy
 

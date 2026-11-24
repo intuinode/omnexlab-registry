@@ -56,12 +56,12 @@
 
   <main id="main" class="page prose">
     <h1>Terms of Service</h1>
-    <p class="meta">Last updated 23 November 2026</p>
+    <p class="meta">Last updated 24 November 2026 &middot; General information, not legal advice</p>
 
     <div class="callout"><strong>In short:</strong> we give you a free DNS name that points to a site you run elsewhere. We do not host, see or control that site, and you are fully responsible for it. We can remove any subdomain, or end the service, at any time and without notice.</div>
 
     <div class="toc"><strong>Contents</strong><br>
-      <a href="#service">1 The service</a><a href="#eligibility">2 Who can use it</a><a href="#subdomain">3 Your subdomain</a><a href="#responsibility">4 Your responsibility</a><a href="#use">5 Acceptable use</a><a href="#enforcement">6 Reports and enforcement</a><a href="#cancel">7 Cancelling</a><a href="#changes">8 Changes and ending the service</a><a href="#plans">9 Paid plans and sponsors</a><a href="#warranty">10 No warranty</a><a href="#liability">11 Liability</a><a href="#third">12 Third parties</a><a href="#contact">13 Contact</a>
+      <a href="#service">1 The service</a><a href="#eligibility">2 Who can use it</a><a href="#subdomain">3 Your subdomain</a><a href="#responsibility">4 Your responsibility</a><a href="#use">5 Acceptable use</a><a href="#enforcement">6 Reports and enforcement</a><a href="#cancel">7 Cancelling</a><a href="#changes">8 Changes and ending the service</a><a href="#plans">9 Paid plans and sponsors</a><a href="#warranty">10 No warranty</a><a href="#liability">11 Liability</a><a href="#third">12 Third parties</a><a href="#safety">13 Automated safety checks</a><a href="#trademarks">14 Trademarks</a><a href="#operator">15 Operator, law and EU rules</a><a href="#contact">16 Contact</a>
     </div>
 
     <h2 id="service">1. The service</h2>
@@ -92,16 +92,18 @@
     <h2 id="use">5. Acceptable use</h2>
     <p>You must not use a subdomain for, or to point to, anything that:</p>
     <ul>
-      <li>is phishing, a scam, fraud, or deceptive, including fake login pages and fake giveaways;</li>
-      <li>distributes or links to malware, or attacks or probes other systems;</li>
+      <li>is phishing, a scam, fraud or otherwise deceptive, including fake login, payment or support pages, fake giveaways, cryptocurrency "drainers" and misleading investment schemes;</li>
+      <li>distributes, hosts or links to malware, ransomware, spyware, exploit kits, botnet or command-and-control servers, or is used to attack, scan, probe or overload other systems;</li>
       <li>impersonates a person, company, brand, public body or another service, or uses a misleading name;</li>
-      <li>is illegal in your country or in ours, or promotes illegal acts or illegal goods and services;</li>
-      <li>contains child sexual abuse material or sexual exploitation of any kind (reported to the authorities);</li>
-      <li>infringes copyright, trademarks or other rights;</li>
-      <li>harasses, threatens or incites violence or hatred against people or groups;</li>
-      <li>is spam, link farming, mass-generated or doorway content, or cryptocurrency or investment schemes that mislead people;</li>
-      <li>acts as an open proxy, open redirect or relay to hide the real destination;</li>
+      <li>is illegal in your country or in ours, or sells or promotes illegal goods and services, such as illegal drugs, weapons, stolen data, counterfeit goods or illegal gambling;</li>
+      <li>contains child sexual abuse material or sexual exploitation of any kind (reported to the authorities), or sexually explicit adult content;</li>
+      <li>infringes copyright, trademarks, privacy or other rights;</li>
+      <li>harasses, threatens, doxxes (publishes private information about) or incites violence or hatred against people or groups;</li>
+      <li>is spam, link farming, scraped, mass-generated or doorway content, fake reviews, or search-engine manipulation;</li>
+      <li>acts as an open proxy, open redirect, URL shortener or relay to hide the real destination;</li>
       <li>sends or receives email (subdomains are for websites only);</li>
+      <li>is resold, rented, transferred or given to others, or is used to hand out subdomains of it to other people;</li>
+      <li>involves bulk, automated or multi-account requests to get more names than allowed;</li>
       <li>tries to get around these rules, the limits of the service, or its checks.</li>
     </ul>
 
@@ -135,8 +137,28 @@
     <h2 id="third">12. Third parties</h2>
     <p>The service depends on others, such as GitHub, Cloudflare and your web host. We do not control them and are not responsible for what they do, for their outages, or for their rules. Their terms apply to your use of them.</p>
 
-    <h2 id="contact">13. Contact</h2>
-    <p>Questions, reports and notices: <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a>. Copyright notices: see <a href="/dmca.html">DMCA &amp; abuse</a>. Privacy: see the <a href="/privacy.html">Privacy Policy</a>.</p>
+    <h2 id="safety">13. Automated safety checks</h2>
+    <p>Every day we check each subdomain's hostname against public threat lists: Google Safe Browsing (where configured) and the malware and phishing filters of Cloudflare's and Quad9's public DNS. Only the hostname is checked; we do not look at your content.</p>
+    <ul>
+      <li><strong>Severe</strong> (for example phishing or malware reported by Google, or blocked by two independent filters): the DNS record is <strong>removed at once</strong>, and we tell you on GitHub why and how to ask for a review.</li>
+      <li><strong>Mild</strong> (for example "unwanted software", or a single filter): you get a <strong>warning</strong> and 7 days to fix it. If the site is still flagged after that, the name is removed. If it is clean again, the warning is closed.</li>
+    </ul>
+    <p>These checks are best effort. They can be wrong in either direction, and they are not a promise that a site is safe. If you think a flag is a mistake, email <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a>. We may also remove names for any other reason in section 6.</p>
+
+    <h2 id="trademarks">14. Trademarks</h2>
+    <p>"omnexlab" and "omnexlab.site" are the name of this service; we do not claim a registered trademark. Other names, logos and marks belong to their owners. You must not register or use a subdomain that copies, or could be confused with, someone else's mark, and you must not use our name to suggest that we endorse you or your site. A trademark owner can report a subdomain at <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a> with the mark, where it is registered, and the subdomain concerned; we may remove it. This is a courtesy process, not a legal procedure.</p>
+
+    <h2 id="operator">15. Operator, governing law and EU rules</h2>
+    <ul>
+      <li><strong>Operator.</strong> omnexlab.site is run by an individual who maintains <code>github.com/intuinode</code>. The operator's name and postal address are not published; they are protected by domain privacy and are disclosed to courts, regulators and other authorities, and to anyone else, where the law requires it. All notices and requests reach the operator at <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a>.</li>
+      <li><strong>Governing law.</strong> These terms are governed by the law of the country where the operator is based. Before starting any dispute, please contact us so we can try to solve it. Nothing here limits mandatory consumer or data-protection rights that apply to you.</li>
+      <li><strong>EU Digital Services Act.</strong> To the extent that law applies to us as a provider of intermediary services (we only provide a DNS name), the single point of contact for users and authorities is <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a>, in English. Notices of illegal content go through the <a href="/dmca.html">abuse page</a>. When we remove a name we aim to tell the owner why, and where we can, the person who reported it. We have not appointed a legal representative in the EU; if the law requires one, we will appoint one.</li>
+      <li><strong>Complaints and human review.</strong> Some removals are automatic (names the host no longer serves, and safety flags). You can ask a person to review any decision by emailing us within six months.</li>
+      <li><strong>Copyright (DMCA).</strong> We handle notices as described on the <a href="/dmca.html#agent">DMCA page</a>.</li>
+    </ul>
+
+    <h2 id="contact">16. Contact</h2>
+    <p>Questions, reports and notices: <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a>. Copyright notices: see <a href="/dmca.html">DMCA &amp; abuse</a>. Privacy: see the <a href="/privacy.html">Privacy Policy</a>. These pages are general information and not legal advice.</p>
   </main>
 
   <footer>
