@@ -15,12 +15,16 @@ permissions:
 concurrency:
   group: registry-writes
   cancel-in-progress: false
+  # keep every waiting run (the default keeps only one and silently drops the rest)
+  queue: max
 
 jobs:
   safety:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main # a queued run must see the latest registry, not the state when it was triggered
       - uses: actions/setup-node@v4
         with:
           node-version: 20
