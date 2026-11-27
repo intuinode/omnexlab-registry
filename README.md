@@ -17,7 +17,7 @@
 
 ## What is omnexlab.site?
 
-omnexlab.site is a **free subdomain registry** (a free custom-domain service). You request a name such as `sara.omnexlab.site`, and a bot creates a DNS `CNAME` record that points it at the website you already host elsewhere, for example on Vercel, GitHub Pages or Netlify. It is **DNS only**: we don't host, store or control your site, we aren't a domain registrar, and we don't provide email.
+omnexlab.site is a **free subdomain registry** (a free custom-domain service). You request a name such as `sara.omnexlab.site`, and a bot creates a DNS `CNAME` record that points it at the website you already host elsewhere, for example on Vercel, GitHub Pages or Netlify. It is **DNS only**: we don't host, store or control your site, we aren't a domain registrar, and we don't run mail servers (email is only possible through your own Resend account).
 
 **Best for:** portfolios, side projects, demos and hackathons, docs and landing pages, and learning how custom domains and HTTPS work.
 
@@ -38,7 +38,7 @@ omnexlab.site is a **free subdomain registry** (a free custom-domain service). Y
 - One subdomain per GitHub account; the account must be at least 30 days old.
 - Names are 3-32 characters: lowercase letters, digits and hyphens. Reserved names and look-alikes of big brands (e.g. containing `paypal`, `google`, `login`, `secure`) are blocked.
 - Only `CNAME` records, only to supported hosts (below).
-- **Not allowed:** phishing, scams or fake login pages; malware, botnets or attacks on other systems; impersonation; illegal goods or content and sexually explicit content; copyright, trademark or privacy infringement; harassment, doxxing or hate; spam, link farms, open redirects or proxies; email on subdomains; reselling or handing out your subdomain; bulk or multi-account requests. Full list in the [Terms](https://omnexlab.site/terms.html#use).
+- **Not allowed:** phishing, scams or fake login pages; malware, botnets or attacks on other systems; impersonation; illegal goods or content and sexually explicit content; copyright, trademark or privacy infringement; harassment, doxxing or hate; spam, link farms, open redirects or proxies; email outside the approved Resend add-on; reselling or handing out your subdomain; bulk or multi-account requests. Full list in the [Terms](https://omnexlab.site/terms.html#use).
 - **We only provide DNS. We are not responsible for user sites.** We can remove any subdomain, or end the service, at any time and without notice.
 
 ## Supported hosts
@@ -76,6 +76,16 @@ Every day each subdomain's hostname is looked up on public threat lists (Google 
 
 If you think a flag is wrong, email abuse@omnexlab.site.
 
+## 📧 Email with Resend (optional, reviewed by hand)
+
+Own a subdomain? You can send (and optionally receive) email from `mail.yourname.omnexlab.site` with your own [Resend](https://resend.com) account:
+
+1. Add `mail.yourname.omnexlab.site` as a domain in Resend.
+2. Submit the [email records form](https://github.com/intuinode/omnexlab-registry/issues/new?template=email.yml) with the values Resend shows.
+3. A maintainer approves it, then press **Verify DNS Records** in Resend.
+
+Only mail people asked for. No spam or marketing blasts. Your API key stays with you. [Full guide](https://omnexlab.site/guides/resend-email.html) · [Email rules](https://omnexlab.site/terms.html#email)
+
 ## 🔁 Change or cancel
 
 Use the [manage page](https://omnexlab.site/manage.html) to point the name somewhere else, switch traffic mode, or release it. Only the owner can do this. Cancelling removes the record within minutes; the name may later be taken by someone else.
@@ -92,7 +102,7 @@ Use the [manage page](https://omnexlab.site/manage.html) to point the name somew
 
 **Can I have more than one?** One per GitHub account for now.
 
-**Can I use it for email?** No. Subdomains are for websites only.
+**Can I use it for email?** Only through the [Resend email add-on](https://omnexlab.site/guides/resend-email.html), which a maintainer approves by hand. It is for mail people asked for, never bulk marketing.
 
 **Why was my request rejected?** The bot replies on your issue with the reason: the host doesn't have the name yet, the name is taken or reserved, the host isn't supported, or the account is too new. The [guides](https://omnexlab.site/guides.html) cover each case.
 

@@ -4,6 +4,7 @@
   "minAccountAgeDays": 30,
   "maxPerUser": 1,
   "blockedUsers": [],
+  "email": { "enabled": true, "minAccountAgeDays": 90 },
   "allowedTargetSuffixes": [
     "github.io",
     "gitlab.io",
@@ -29,7 +30,7 @@
     "abuse", "security", "postmaster", "webmaster", "hostmaster", "noreply", "login",
     "signin", "signup", "register", "account", "accounts", "billing", "pay", "payment",
     "payments", "docs", "blog", "cdn", "static", "assets", "git", "github", "autodiscover",
-    "autoconfig", "registry", "omnexlab", "lab", "labs"
+    "autoconfig", "registry", "omnexlab", "lab", "labs", "test", "send", "rsend"
   ],
   "sensitiveWords": [
     "paypal", "google", "apple", "icloud", "microsoft", "outlook", "amazon", "facebook",

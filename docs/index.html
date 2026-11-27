@@ -65,7 +65,7 @@
         { "@type": "Question", "name": "Is it safe for logins or payments?", "acceptedAnswer": { "@type": "Answer", "text": "No. Free shared subdomains are for portfolios, demos and side projects. With the default Cloudflare proxy, HTTPS is decrypted at Cloudflare under our account before it reaches your host. Choose Direct mode, or use your own domain, for anything sensitive." } },
         { "@type": "Question", "name": "Why was my request rejected?", "acceptedAnswer": { "@type": "Answer", "text": "The bot replies on your request with the reason. Common ones: your host does not have the name attached yet, the name is taken or reserved, the host is not supported, or your GitHub account is under 30 days old." } },
         { "@type": "Question", "name": "Can I have more than one subdomain?", "acceptedAnswer": { "@type": "Answer", "text": "One per GitHub account for now." } },
-        { "@type": "Question", "name": "Can I use it for email?", "acceptedAnswer": { "@type": "Answer", "text": "No. Subdomains are for websites only." } },
+        { "@type": "Question", "name": "Can I use it for email?", "acceptedAnswer": { "@type": "Answer", "text": "Only through the Resend email add-on, which a maintainer approves by hand. It is for mail people asked for, never bulk marketing. See the email guide." } },
         { "@type": "Question", "name": "Do you host my site?", "acceptedAnswer": { "@type": "Answer", "text": "No. We only provide the DNS name. Your site stays on your own host, and you are responsible for it." } },
         { "@type": "Question", "name": "How do I cancel my subdomain?", "acceptedAnswer": { "@type": "Answer", "text": "Use the manage page. Only the owner can cancel. The DNS record is removed within minutes." } },
         { "@type": "Question", "name": "What if someone misuses a subdomain?", "acceptedAnswer": { "@type": "Answer", "text": "Report it on our abuse and DMCA page. We review reports within 48 hours and can remove a name at any time." } }
@@ -159,7 +159,7 @@
       <p class="sub">The full rules are in the <a href="/terms.html">Terms</a>.</p>
       <div class="two">
         <div class="box good"><h3>&#10003; Welcome</h3><ul><li>Personal and project websites</li><li>Portfolios, blogs, docs, demos</li><li>Open-source and learning projects</li><li>Anything you are allowed to publish</li></ul></div>
-        <div class="box badbox"><h3>&#10007; Not allowed</h3><ul><li>Phishing, scams, fake logins, malware, attacks</li><li>Impersonating people, brands or services</li><li>Illegal goods or content, adult content</li><li>Harassment, doxxing, hate</li><li>Spam, link farms, open redirects or proxies</li><li>Email, reselling names, bulk registering</li></ul></div>
+        <div class="box badbox"><h3>&#10007; Not allowed</h3><ul><li>Phishing, scams, fake logins, malware, attacks</li><li>Impersonating people, brands or services</li><li>Illegal goods or content, adult content</li><li>Harassment, doxxing, hate</li><li>Spam, link farms, open redirects or proxies</li><li>Email outside the approved Resend add-on; reselling or bulk registering</li></ul></div>
       </div>
       <div class="callout info"><strong>We do not host or control your site.</strong> We only provide the DNS name. You are responsible for everything served from your subdomain. Reports go to <a href="/dmca.html">our abuse and DMCA page</a> and are reviewed within 48 hours. Every day an automated check looks up each subdomain's hostname on public threat lists: dangerous sites are removed, and minor flags get a warning first (<a href="/terms.html#safety">details</a>).</div>
     </section>
@@ -194,7 +194,7 @@
       <details><summary>Why was my request rejected?</summary><p>The bot replies on your request with the reason. Common ones: your host does not have the name attached yet, the name is taken or reserved, the host is not supported, or your GitHub account is under 30 days old.</p></details>
       <details><summary>Is it safe for logins or payments?</summary><p>No. Free shared subdomains are for portfolios, demos and side projects. With the default Cloudflare proxy, HTTPS is decrypted at Cloudflare under our account before it reaches your host. Choose Direct mode, or use your own domain, for anything sensitive.</p></details>
       <details><summary>Can I have more than one subdomain?</summary><p>One per GitHub account for now.</p></details>
-      <details><summary>Can I use it for email?</summary><p>No. Subdomains are for websites only.</p></details>
+      <details><summary>Can I use it for email?</summary><p>Only through the Resend email add-on, which a maintainer approves by hand. It is for mail people asked for, never bulk marketing. See the <a href="/guides/resend-email.html">email guide</a>.</p></details>
       <details><summary>Do you host my site?</summary><p>No. We only provide the DNS name. Your site stays on your own host, and you are responsible for it.</p></details>
       <details><summary>How do I cancel my subdomain?</summary><p>Use the <a href="/manage.html#cancel">manage page</a>. Only the owner can cancel. The DNS record is removed within minutes.</p></details>
       <details><summary>What if someone misuses a subdomain?</summary><p>Report it on our <a href="/dmca.html">abuse and DMCA page</a>. We review reports within 48 hours and can remove a name at any time.</p></details>

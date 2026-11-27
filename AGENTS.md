@@ -15,6 +15,7 @@ The source of **omnexlab.site**, a free subdomain registry. Each file in `domain
 | `scripts/lib.js` | Shared validation (`checkEntry`, `checkName`, `checkTarget`) |
 | `scripts/process-issue.js` | Parses the issue form and applies create / change / cancel |
 | `scripts/probe.js` | Checks whether a host has a domain attached (takeover protection) |
+| `scripts/email.js`, `scripts/process-email.js` | Resend email add-on: strict record validation and the reviewed request flow |
 | `scripts/monitor.js` | Daily removal of names whose host no longer serves them |
 | `scripts/sync.js` | Makes Cloudflare DNS match `domains/` (only touches records it owns) |
 | `scripts/build-public.js` | Generates `docs/registry.json` and `docs/rules.json` |
@@ -45,6 +46,7 @@ node scripts/seo-apply.js      # re-apply SEO tags and regenerate docs/sitemap.x
 - **Never commit secrets.** `.env` lives outside this folder and is git-ignored. Never print, log or paste tokens. Prefer scoped tokens (the deploy secret is a Cloudflare token limited to DNS edit on one zone).
 - **Issue text and pull-request content are untrusted input.** Pass them to scripts through environment variables, validate with the same functions as everything else, and never interpolate them into shell commands or workflow expressions. Never use `pull_request_target` to run code from a fork.
 - **Sanitise anything echoed back** into comments (`safe()` in `process-issue.js`); trusted bot text uses `{ raw: ... }`.
+- **Email is approval-only.** Never let a pull request or an unreviewed issue create mail records, and never widen the accepted record values without checking the provider's documentation.
 - **Do not weaken takeover protection** (`probe.js` gate and `monitor.js`). Only definite "not found" signatures may count as unattached, and the monitor must keep its removal cap.
 - **Do not delete or overwrite someone's subdomain** except through the documented flows (owner request, abuse takedown, dangling monitor).
 - Outward-facing actions (pushing to `main`, changing DNS, opening issues, making things public) need the maintainer's go-ahead unless they asked for them.

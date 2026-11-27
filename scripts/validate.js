@@ -82,6 +82,17 @@ async function validatePr() {
     }
   }
 
+  // Email records need a maintainer review, so a pull request may not add or change them.
+  for (const [status, file] of changes) {
+    if (maintainer || status === 'D' || !/^domains/[a-z0-9-]+.json$/.test(file)) continue;
+    const d = loadDomains().find((x) => `domains/${x.file}` === file);
+    let before = null;
+    if (status !== 'A') { try { before = JSON.parse(git('show', `${base}:${file}`)); } catch { before = null; } }
+    const was = JSON.stringify((before && before.email) || null);
+    const now = JSON.stringify((d && d.entry && d.entry.email) || null);
+    if (was !== now) fail(`${file}: email records need approval. Use the email form instead of a pull request.`);
+  }
+
   if (!maintainer && changes.some(([s]) => s !== 'D')) {
     try {
       const days = await accountAgeDays(author);

@@ -3,7 +3,7 @@
 (function () {
   var REPO = 'https://github.com/intuinode/omnexlab-registry/issues/new';
   var ALLOWED = ['github.io','gitlab.io','netlify.app','vercel.app','vercel-dns.com','pages.dev','workers.dev','onrender.com','fly.dev','surge.sh','web.app','firebaseapp.com','codeberg.page','readthedocs.io'];
-  var RESERVED = ['www','mail','email','smtp','imap','pop','pop3','ftp','ns','ns1','ns2','dns','admin','administrator','root','api','app','status','support','help','abuse','security','postmaster','webmaster','hostmaster','noreply','login','signin','signup','register','account','accounts','billing','pay','payment','payments','docs','blog','cdn','static','assets','git','github','autodiscover','autoconfig','registry','omnexlab','lab','labs'];
+  var RESERVED = ['www','mail','email','smtp','imap','pop','pop3','ftp','ns','ns1','ns2','dns','admin','administrator','root','api','app','status','support','help','abuse','security','postmaster','webmaster','hostmaster','noreply','login','signin','signup','register','account','accounts','billing','pay','payment','payments','docs','blog','cdn','static','assets','git','github','autodiscover','autoconfig','registry','omnexlab','lab','labs','test','send','rsend'];
   var SENSITIVE = ['paypal','google','apple','icloud','microsoft','outlook','amazon','facebook','instagram','whatsapp','netflix','binance','coinbase','metamask','wellsfargo','bankofamerica','login','signin','secure','verify','official'];
   var $ = function (id) { return document.getElementById(id); };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

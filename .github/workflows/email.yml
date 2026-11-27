@@ -1,0 +1,65 @@
+name: Email records
+
+# Resend email add-on. Stage 1 (opened/edited) validates and waits. Stage 2 runs only when a
+# maintainer adds the "email-approved" label. Issue text reaches the script through environment
+# variables only.
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: registry-writes
+  cancel-in-progress: false
+
+jobs:
+  email:
+    if: >-
+      contains(github.event.issue.labels.*.name, 'email-request') && github.event.issue.state == 'open' &&
+      (github.event.action == 'opened' || github.event.action == 'edited' ||
+       (github.event.action == 'labeled' && github.event.label.name == 'email-approved'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Process the email request
+        id: proc
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          APPROVER: ${{ github.event.sender.login }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          RESULT_FILE: ${{ runner.temp }}/result.md
+          STAGE: ${{ github.event.action == 'labeled' && '--apply' || '--check' }}
+        run: node scripts/process-email.js "$STAGE"
+      - name: Commit and start deploy
+        if: steps.proc.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A domains
+          if git diff --cached --quiet; then echo "No change to commit"; exit 0; fi
+          git commit -m "Email records, request #${ISSUE_NUMBER}"
+          git pull --rebase origin main
+          git push origin main
+          gh workflow run deploy.yml --ref main
+      - name: Reply
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          CLOSE: ${{ steps.proc.outputs.close }}
+          RESULT_FILE: ${{ runner.temp }}/result.md
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body-file "$RESULT_FILE"
+          if [ "$CLOSE" = "true" ]; then gh issue close "$ISSUE_NUMBER" --reason completed; fi

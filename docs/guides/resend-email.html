@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Send Email with Resend on a Free Subdomain | omnexlab.site</title>
+<meta name="description" content="Set up Resend on your free omnexlab.site subdomain: add the domain, request the DNS records, verify, and send email with the Resend API.">
+<meta name="theme-color" content="#4f46e5">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://omnexlab.site/guides/resend-email.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="omnexlab.site">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Send Email with Resend on a Free Subdomain | omnexlab.site">
+<meta property="og:description" content="Set up Resend on your free omnexlab.site subdomain: add the domain, request the DNS records, verify, and send email with the Resend API.">
+<meta property="og:url" content="https://omnexlab.site/guides/resend-email.html">
+<meta property="og:image" content="https://omnexlab.site/og.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="omnexlab.site: free subdomains for your projects">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Send Email with Resend on a Free Subdomain | omnexlab.site">
+<meta name="twitter:description" content="Set up Resend on your free omnexlab.site subdomain: add the domain, request the DNS records, verify, and send email with the Resend API.">
+<meta name="twitter:image" content="https://omnexlab.site/og.png">
+<meta name="twitter:image:alt" content="omnexlab.site: free subdomains for your projects">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HowTo",
+      "name": "How to send email with Resend from a free omnexlab.site subdomain",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Own a subdomain", "text": "Request a free yourname.omnexlab.site subdomain first." },
+        { "@type": "HowToStep", "position": 2, "name": "Add the domain in Resend", "text": "In Resend add the domain mail.yourname.omnexlab.site." },
+        { "@type": "HowToStep", "position": 3, "name": "Request the records", "text": "Submit the email records form on GitHub with the values Resend shows. A maintainer reviews it." },
+        { "@type": "HowToStep", "position": 4, "name": "Verify and send", "text": "After approval press Verify DNS Records in Resend, create an API key limited to sending, and send with the Resend API." }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://omnexlab.site/" },
+        { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://omnexlab.site/guides.html" },
+        { "@type": "ListItem", "position": 3, "name": "Resend email", "item": "https://omnexlab.site/guides/resend-email.html" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#g)"/><circle cx="16" cy="16" r="6" fill="none" stroke="#fff" stroke-width="3"/></svg>omnexlab</a>
+    <nav aria-label="Main"><a href="/">Home</a><a href="/guides.html" aria-current="page">Guides</a><a href="/manage.html">Manage</a><a href="/plans.html">Plans</a><a class="ext" href="https://github.com/intuinode/omnexlab-registry">GitHub</a></nav>
+  </header>
+
+  <main id="main" class="page prose">
+    <p class="meta"><a href="/guides.html">Guides</a> &rsaquo; Resend email</p>
+    <h1>Send email with Resend on your subdomain</h1>
+    <p class="meta">About 10 minutes, plus a manual review</p>
+
+    <p>You can use <a href="https://resend.com">Resend</a> to send email from your free subdomain through their API. We only publish the DNS records. You need your own Resend account, and your mail goes through Resend, not through us.</p>
+
+    <div class="callout sec"><strong>Only mail people asked for.</strong> Sign-up confirmations, password resets, receipts and replies are fine. Marketing blasts, bought lists, cold outreach and anything unsolicited are not allowed, and remove your subdomain. Read the <a href="/terms.html#email">email rules</a>.</div>
+
+    <h2>What you need</h2>
+    <ul>
+      <li>A subdomain you own, for example <code>yourname.omnexlab.site</code>.</li>
+      <li>A Resend account. Check their current free limits and terms.</li>
+      <li>A GitHub account at least 90 days old.</li>
+    </ul>
+
+    <h2>Step by step</h2>
+    <ol>
+      <li><strong>Add the domain in Resend.</strong> Add <code>mail.yourname.omnexlab.site</code>, with <code>mail.</code> in front. That keeps mail separate from your website.</li>
+      <li><strong>Keep the Resend page open.</strong> It lists DNS records. They come in one of two styles (below).</li>
+      <li><strong>Send the request.</strong> Open the <a href="https://github.com/intuinode/omnexlab-registry/issues/new?template=email.yml">email records form</a> and copy the values. A bot checks them and lists exactly what will be created.</li>
+      <li><strong>Wait for approval.</strong> A person reviews every email request. If you edit the issue, it is checked again.</li>
+      <li><strong>Verify.</strong> When the bot says approved, wait a few minutes and press <strong>Verify DNS Records</strong> in Resend. It can take longer.</li>
+      <li><strong>Create an API key.</strong> In Resend create a key with <em>sending access</em> only, limited to your domain.</li>
+    </ol>
+
+    <h2>Which values go where</h2>
+    <table>
+      <thead><tr><th>Resend shows</th><th>Put it in</th></tr></thead>
+      <tbody>
+        <tr><td>TXT <code>resend._domainkey</code></td><td><strong>DKIM value</strong> (starts with <code>p=</code>)</td></tr>
+        <tr><td>MX <code>send</code> (older style)</td><td><strong>Sending MX value</strong>, for example <code>feedback-smtp.us-east-1.amazonses.com</code>. We add the SPF record for you.</td></tr>
+        <tr><td>CNAME <code>send</code> and <code>rsend</code> (newer style)</td><td><strong>send CNAME target</strong> and <strong>rsend CNAME target</strong>. Leave the MX box empty.</td></tr>
+        <tr><td>MX for receiving (optional)</td><td><strong>Receiving MX value</strong>, only if you turned on Receiving</td></tr>
+      </tbody>
+    </table>
+    <p>Do not add records yourself: we create them, unproxied. We also add a DMARC record that asks receivers to quarantine mail that fails authentication.</p>
+
+    <h2>Send your first email</h2>
+    <p>Keep the API key on your server, in an environment variable. Never put it in front-end code, a public repository or a GitHub issue.</p>
+<pre style="overflow-x:auto"><code>curl -X POST https://api.resend.com/emails \
+  -H "Authorization: Bearer $RESEND_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "from": "My App &lt;hello@mail.yourname.omnexlab.site&gt;",
+    "to": ["someone@example.com"],
+    "subject": "Hello",
+    "text": "It works."
+  }'</code></pre>
+
+    <h2>Receiving mail</h2>
+    <p>If you turn on <strong>Receiving</strong> in Resend and give us the MX value, mail sent to <code>anything@mail.yourname.omnexlab.site</code> goes to your Resend account, and you read it with their dashboard or API. We never see it.</p>
+
+    <h2>Troubleshooting</h2>
+    <ul>
+      <li><strong>Not verified after an hour:</strong> check that the domain in Resend is exactly <code>mail.yourname.omnexlab.site</code>, then compare each value with your request.</li>
+      <li><strong>Values changed in Resend:</strong> edit your issue, or open a new request. It is reviewed again.</li>
+      <li><strong>Stop using email:</strong> open the form and choose <em>Remove my email records</em>. This is applied without review, and your website stays.</li>
+    </ul>
+
+    <p style="margin-top:28px"><a class="btn inline ext" href="https://github.com/intuinode/omnexlab-registry/issues/new?template=email.yml">Request email records</a></p>
+  </main>
+
+  <footer>
+    <span>&copy; omnexlab.site &middot; DNS only, we do not host your site.</span>
+    <span class="links"><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/dmca.html">DMCA &amp; abuse</a><a href="/plans.html">Plans &amp; sponsors</a><a href="https://github.com/intuinode/omnexlab-registry">GitHub</a></span>
+  </footer>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

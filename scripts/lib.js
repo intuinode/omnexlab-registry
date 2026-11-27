@@ -7,6 +7,8 @@ const ROOT = path.join(__dirname, '..');
 const DOMAINS_DIR = path.join(ROOT, 'domains');
 const config = JSON.parse(fs.readFileSync(path.join(ROOT, 'config.json'), 'utf8'));
 
+const { checkEmail } = require('./email');
+
 const NAME_RE = /^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$/; // 3-32 chars
 const GH_USER_RE = /^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){0,38}$/i;
 const HOST_RE = /^(?=.{4,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
@@ -47,7 +49,7 @@ function checkEntry(name, entry, cfg = config) {
   if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
     return [...errors, 'file must contain a JSON object'];
   }
-  const extra = Object.keys(entry).filter((k) => !['owner', 'record', 'description', 'proxied'].includes(k));
+  const extra = Object.keys(entry).filter((k) => !['owner', 'record', 'description', 'proxied', 'email'].includes(k));
   if (extra.length) errors.push(`unknown field(s): ${extra.join(', ')}`);
 
   // "proxied": false = "Direct" mode (DNS only): HTTPS then terminates at the owner's own host
@@ -69,6 +71,9 @@ function checkEntry(name, entry, cfg = config) {
     if (keys.length !== 1 || keys[0] !== 'CNAME') errors.push('record must contain exactly one CNAME entry');
     else errors.push(...checkTarget(rec.CNAME, cfg));
   }
+
+  // Resend email add-on (only added through the reviewed email form; see scripts/validate.js)
+  if (entry.email !== undefined) errors.push(...checkEmail(entry.email));
 
   if (entry.description !== undefined && (typeof entry.description !== 'string' || entry.description.length > 140)) {
     errors.push('description must be text of at most 140 characters');

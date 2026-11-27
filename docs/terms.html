@@ -61,11 +61,11 @@
     <div class="callout"><strong>In short:</strong> we give you a free DNS name that points to a site you run elsewhere. We do not host, see or control that site, and you are fully responsible for it. We can remove any subdomain, or end the service, at any time and without notice.</div>
 
     <div class="toc"><strong>Contents</strong><br>
-      <a href="#service">1 The service</a><a href="#eligibility">2 Who can use it</a><a href="#subdomain">3 Your subdomain</a><a href="#responsibility">4 Your responsibility</a><a href="#use">5 Acceptable use</a><a href="#enforcement">6 Reports and enforcement</a><a href="#cancel">7 Cancelling</a><a href="#changes">8 Changes and ending the service</a><a href="#plans">9 Paid plans and sponsors</a><a href="#warranty">10 No warranty</a><a href="#liability">11 Liability</a><a href="#third">12 Third parties</a><a href="#safety">13 Automated safety checks</a><a href="#trademarks">14 Trademarks</a><a href="#operator">15 Operator, law and EU rules</a><a href="#contact">16 Contact</a>
+      <a href="#service">1 The service</a><a href="#eligibility">2 Who can use it</a><a href="#subdomain">3 Your subdomain</a><a href="#responsibility">4 Your responsibility</a><a href="#use">5 Acceptable use</a><a href="#enforcement">6 Reports and enforcement</a><a href="#cancel">7 Cancelling</a><a href="#changes">8 Changes and ending the service</a><a href="#plans">9 Paid plans and sponsors</a><a href="#warranty">10 No warranty</a><a href="#liability">11 Liability</a><a href="#third">12 Third parties</a><a href="#safety">13 Automated safety checks</a><a href="#trademarks">14 Trademarks</a><a href="#operator">15 Operator, law and EU rules</a><a href="#email">16 Email add-on</a><a href="#contact">17 Contact</a>
     </div>
 
     <h2 id="service">1. The service</h2>
-    <p>omnexlab.site ("we", "us", "the service") lets people request a free subdomain of omnexlab.site, such as <code>name.omnexlab.site</code>. The service only creates a DNS record that points the name at a web host chosen by you, for example Vercel or GitHub Pages. <strong>We do not host, store, copy, monitor or edit any website, file or content.</strong> The service is run through a public GitHub repository, and traffic to subdomains passes through Cloudflare.</p>
+    <p>omnexlab.site ("we", "us", "the service") lets people request a free subdomain of omnexlab.site, such as <code>name.omnexlab.site</code>. The service only creates a DNS record that points the name at a web host chosen by you, for example Vercel or GitHub Pages, and, if you ask and we approve, the DNS records an email provider needs (section 16). <strong>We do not host, store, copy, monitor or edit any website, file or content.</strong> The service is run through a public GitHub repository, and traffic to subdomains passes through Cloudflare.</p>
 
     <h2 id="eligibility">2. Who can use it</h2>
     <p>You need a GitHub account in good standing that follows GitHub's terms, and you must be old enough to enter a binding agreement where you live (at least 16 if you are in the European Economic Area or the UK, at least 13 elsewhere). If you use the service for an organisation, you confirm you may bind it. By requesting a subdomain you accept these terms.</p>
@@ -101,7 +101,7 @@
       <li>harasses, threatens, doxxes (publishes private information about) or incites violence or hatred against people or groups;</li>
       <li>is spam, link farming, scraped, mass-generated or doorway content, fake reviews, or search-engine manipulation;</li>
       <li>acts as an open proxy, open redirect, URL shortener or relay to hide the real destination;</li>
-      <li>sends or receives email (subdomains are for websites only);</li>
+      <li>sends or receives email, except through an approved email setup that follows <a href="#email">section 16</a>;</li>
       <li>is resold, rented, transferred or given to others, or is used to hand out subdomains of it to other people;</li>
       <li>involves bulk, automated or multi-account requests to get more names than allowed;</li>
       <li>tries to get around these rules, the limits of the service, or its checks.</li>
@@ -157,7 +157,18 @@
       <li><strong>Copyright (DMCA).</strong> We handle notices as described on the <a href="/dmca.html#agent">DMCA page</a>.</li>
     </ul>
 
-    <h2 id="contact">16. Contact</h2>
+    <h2 id="email">16. Email add-on (Resend)</h2>
+    <p>On request, and only after a manual review, we publish the DNS records that let your own <strong>Resend</strong> account send, and optionally receive, email for <code>mail.yourname.omnexlab.site</code>. We provide DNS only: we do not send, receive, store or read your mail.</p>
+    <ul>
+      <li><strong>Only mail people asked for:</strong> account messages, receipts, notifications and replies. No spam, marketing blasts, cold outreach, bought or scraped lists, phishing, or mail that pretends to come from someone else.</li>
+      <li>You must follow the law that applies to your mail (such as consent, unsubscribe and privacy rules) and Resend's terms. You are responsible for your recipients' data.</li>
+      <li>Keep your API keys secret. You are responsible for everything sent with them.</li>
+      <li>You need to own the subdomain, and your GitHub account must meet the age requirement shown on the form. We may refuse any request without giving a reason.</li>
+      <li>A complaint, bounce or abuse signal, or a listing on a block list, can lead to <strong>immediate removal of the mail records or the whole subdomain, without notice</strong>. Because one sender can harm the reputation of every name on this domain, we are strict.</li>
+      <li>We can end the add-on at any time.</li>
+    </ul>
+
+    <h2 id="contact">17. Contact</h2>
     <p>Questions, reports and notices: <a href="mailto:abuse@omnexlab.site">abuse@omnexlab.site</a>. Copyright notices: see <a href="/dmca.html">DMCA &amp; abuse</a>. Privacy: see the <a href="/privacy.html">Privacy Policy</a>. These pages are general information and not legal advice.</p>
   </main>
 

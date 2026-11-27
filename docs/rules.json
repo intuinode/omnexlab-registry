@@ -64,7 +64,10 @@
     "registry",
     "omnexlab",
     "lab",
-    "labs"
+    "labs",
+    "test",
+    "send",
+    "rsend"
   ],
   "blockedWords": [
     "paypal",
@@ -144,10 +147,20 @@
     "harassment, doxxing, threats, incitement to violence or hatred",
     "spam, link farms, scraped or doorway content, fake reviews, SEO manipulation",
     "open proxies, open redirects, URL shorteners",
-    "email on subdomains",
+    "email outside the approved Resend add-on, and any bulk or unsolicited mail",
     "reselling, renting, transferring or handing out subdomains of your subdomain",
     "bulk, automated or multi-account requests"
   ],
+  "email": {
+    "available": true,
+    "provider": "resend",
+    "domainToAddInResend": "mail.<name>.omnexlab.site",
+    "approval": "manual, by a maintainer",
+    "minimumGitHubAccountAgeDays": 90,
+    "form": "https://github.com/intuinode/omnexlab-registry/issues/new?template=email.yml",
+    "guide": "https://omnexlab.site/guides/resend-email.html",
+    "allowed": "mail people asked for; no bulk, marketing or unsolicited mail"
+  },
   "safetyChecks": {
     "frequency": "daily",
     "sources": [

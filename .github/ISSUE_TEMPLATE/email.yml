@@ -1,0 +1,88 @@
+name: "📧 Email records (Resend)"
+description: Send or receive email with Resend on your subdomain. Reviewed by a maintainer.
+title: "Email records: "
+labels: ["email-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📧 Email with Resend
+
+        > ### ⚠️ Do this first
+        > 1. You already own a subdomain, for example `name.omnexlab.site`.
+        > 2. In Resend, add the domain **`mail.name.omnexlab.site`** (note the `mail.` in front).
+        > 3. Resend shows DNS records. Copy their values into the boxes below.
+
+        Every request is **reviewed by hand**. Do **not** paste your Resend API key anywhere in this issue: it is public.
+        📖 [Step-by-step guide](https://omnexlab.site/guides/resend-email.html) · [Email rules](https://omnexlab.site/terms.html#email)
+  - type: dropdown
+    id: action
+    attributes:
+      label: What do you want to do?
+      options:
+        - Set up or change email records
+        - Remove my email records
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Email subdomain
+      description: Your subdomain's first part, e.g. name (for name.omnexlab.site).
+      placeholder: name
+    validations:
+      required: true
+  - type: textarea
+    id: dkim
+    attributes:
+      label: DKIM value
+      description: The whole TXT value Resend shows for resend._domainkey (starts with p=). Not needed when removing.
+      placeholder: p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCB...
+    validations:
+      required: false
+  - type: input
+    id: sendingMx
+    attributes:
+      label: Sending MX value
+      description: If Resend shows an MX record for "send", paste its value. Leave empty if Resend shows CNAME records instead.
+      placeholder: feedback-smtp.us-east-1.amazonses.com
+    validations:
+      required: false
+  - type: input
+    id: send
+    attributes:
+      label: send CNAME target
+      description: Newer Resend domains - the target of the CNAME named "send". Otherwise leave empty.
+    validations:
+      required: false
+  - type: input
+    id: rsend
+    attributes:
+      label: rsend CNAME target
+      description: The target of the second CNAME (if Resend shows one).
+    validations:
+      required: false
+  - type: input
+    id: receivingMx
+    attributes:
+      label: Receiving MX value
+      description: Optional. Only if you turned on "Receiving" in Resend - paste the MX value it shows.
+      placeholder: inbound-smtp.us-east-1.amazonaws.com
+    validations:
+      required: false
+  - type: textarea
+    id: use
+    attributes:
+      label: What will you send
+      description: What kind of messages, to whom, and how they signed up. Not needed when removing.
+      placeholder: Password resets and receipts for people who create an account in my app.
+    validations:
+      required: false
+  - type: checkboxes
+    id: agree
+    attributes:
+      label: Email rules
+      options:
+        - label: I will only send mail people asked for (no spam, marketing blasts or bought lists), follow Resend's terms and the law, and accept that misuse removes my subdomain.
+          required: false

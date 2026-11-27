@@ -29,7 +29,15 @@ The GitHub account that opens the issue becomes the owner. No fork, pull request
 - Name: 3 to 32 characters, lowercase letters, digits and hyphens; must not start or end with a hyphen or contain two hyphens in a row. Regex: `^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$`.
 - Reserved names are refused (for example www, mail, admin, api, login, support, abuse, github). Names containing words such as paypal, google, apple, microsoft, amazon, login, secure, verify or official are refused to prevent impersonation. The full lists are in https://omnexlab.site/rules.json.
 - Only CNAME records, only to supported hosts: github.io, gitlab.io, netlify.app, vercel.app, vercel-dns.com (and vercel-dns-NNN.com), pages.dev, workers.dev, onrender.com, fly.dev, surge.sh, web.app, firebaseapp.com, codeberg.page, readthedocs.io.
-- Not allowed: phishing, scams and fake login or payment pages; malware, botnets, command-and-control and attacks on other systems; impersonation of people, brands, public bodies or services; illegal goods, services or content (drugs, weapons, stolen data, counterfeits, illegal gambling); child sexual abuse material, sexual exploitation and sexually explicit adult content; copyright, trademark or privacy infringement; harassment, doxxing, threats, incitement to violence or hatred; spam, link farms, scraped or doorway content, fake reviews; open proxies, open redirects and URL shorteners; email on subdomains; reselling, renting, transferring or handing out subdomains; bulk, automated or multi-account requests.
+- Not allowed: phishing, scams and fake login or payment pages; malware, botnets, command-and-control and attacks on other systems; impersonation of people, brands, public bodies or services; illegal goods, services or content (drugs, weapons, stolen data, counterfeits, illegal gambling); child sexual abuse material, sexual exploitation and sexually explicit adult content; copyright, trademark or privacy infringement; harassment, doxxing, threats, incitement to violence or hatred; spam, link farms, scraped or doorway content, fake reviews; open proxies, open redirects and URL shorteners; email outside the approved Resend add-on; reselling, renting, transferring or handing out subdomains; bulk, automated or multi-account requests.
+
+## Email with Resend (optional add-on)
+
+A subdomain owner can use their own Resend account to send, and optionally receive, email at mail.NAME.omnexlab.site.
+1. Add the domain mail.NAME.omnexlab.site in Resend.
+2. Submit https://github.com/intuinode/omnexlab-registry/issues/new?template=email.yml with the values Resend shows: the DKIM TXT value (p=...), either the sending MX value (feedback-smtp.<region>.amazonses.com) or the send/rsend CNAME targets, and optionally the receiving MX value.
+3. A bot validates the values and a maintainer approves by hand. Then press Verify DNS Records in Resend.
+Requirements: own the subdomain, GitHub account at least 90 days old, mail people asked for only (no bulk, marketing or unsolicited mail). Records are created unproxied with a DMARC quarantine policy. The service never sees mail or API keys. Never put an API key in an issue.
 
 ## Automated safety checks
 
@@ -117,7 +125,7 @@ Through Cloudflare (instant HTTPS, recommended for public sites)
 
 **Can I have more than one subdomain?** One per GitHub account for now.
 
-**Can I use it for email?** No. Subdomains are for websites only.
+**Can I use it for email?** Only through the Resend email add-on, which a maintainer approves by hand. It is for mail people asked for, never bulk marketing.
 
 **Is it safe for logins or payments?** No. Use your own domain for sensitive use. With the default proxy, HTTPS is decrypted at Cloudflare under the operator's account; Direct mode avoids that.
 
