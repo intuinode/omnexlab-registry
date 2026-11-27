@@ -84,7 +84,7 @@ async function validatePr() {
 
   // Email records need a maintainer review, so a pull request may not add or change them.
   for (const [status, file] of changes) {
-    if (maintainer || status === 'D' || !/^domains/[a-z0-9-]+.json$/.test(file)) continue;
+    if (maintainer || status === 'D' || !/^domains\/[a-z0-9-]+\.json$/.test(file)) continue;
     const d = loadDomains().find((x) => `domains/${x.file}` === file);
     let before = null;
     if (status !== 'A') { try { before = JSON.parse(git('show', `${base}:${file}`)); } catch { before = null; } }
@@ -112,7 +112,8 @@ async function validatePr() {
   if (errors.length) {
     for (const e of errors) console.log(`::error::${e}`);
     console.log(`\n${errors.length} problem(s) found.`);
-    process.exit(1);
+    process.exitCode = 1; // let Node close open connections itself (process.exit can crash on Windows)
+    return;
   }
   console.log(`OK: ${n} subdomain file(s) valid.`);
-})().catch((e) => { console.log(`::error::${e.message}`); process.exit(1); });
+})().catch((e) => { console.log(`::error::${e.message}`); process.exitCode = 1; });
