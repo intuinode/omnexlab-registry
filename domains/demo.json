@@ -5,5 +5,13 @@
   "record": {
     "CNAME": "intuinode.github.io"
   },
-  "description": "Demo site for the registry"
+  "description": "Demo site for the registry",
+  "email": {
+    "provider": "resend",
+    "dkim": "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC08q61QSWdPwwHLJodh+zKWMYn95rwCklBALaOZcAxl2pccU1emZ8WGfG2san58NWT/pvoQCO48VMBO8IBA6q+jrywmh8CeqkdciQ8HAjA+iZ4BfnDiiwh8e0obek4VBeXI5UagCQK8ABA/GFTzLje5uqLGsmIN42c21O8mDiJYQIDAQAB",
+    "sendingCname": {
+      "send": "send.forge.rmta.net",
+      "rsend": "rsend-apne1.forge.rmta.net"
+    }
+  }
 }
